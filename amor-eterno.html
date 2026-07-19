@@ -1,1 +1,1258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Eu escolheria você ❤️</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            width: 100%;
+            min-height: 100vh;
+            overflow: hidden;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+
+            background:
+                radial-gradient(
+                    circle at 50% 45%,
+                    #471367 0%,
+                    #190824 38%,
+                    #06010d 72%,
+                    #000000 100%
+                );
+
+            transition: background 2s ease;
+        }
+
+        body.escuro {
+            background: #000000;
+        }
+
+        /* Céu estrelado */
+
+        #ceu {
+            position: fixed;
+            inset: 0;
+
+            overflow: hidden;
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+        .estrela {
+            position: absolute;
+
+            border-radius: 50%;
+            background: white;
+
+            box-shadow:
+                0 0 7px white,
+                0 0 15px rgba(255, 255, 255, 0.8);
+
+            animation:
+                piscar 2.5s infinite alternate;
+
+            transition:
+                opacity 1.5s ease,
+                transform 1.5s ease,
+                box-shadow 1.5s ease;
+        }
+
+        .estrela.brilho-forte {
+            transform: scale(2.3);
+
+            box-shadow:
+                0 0 12px white,
+                0 0 28px white,
+                0 0 55px rgba(219, 142, 255, 0.9);
+        }
+
+        @keyframes piscar {
+            from {
+                opacity: 0.18;
+                transform: scale(0.75);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1.35);
+            }
+        }
+
+        /* Estrelas cadentes */
+
+        .cadente {
+            position: fixed;
+
+            top: -100px;
+            left: -240px;
+
+            width: 220px;
+            height: 2px;
+
+            opacity: 0;
+
+            background:
+                linear-gradient(
+                    to right,
+                    transparent,
+                    white
+                );
+
+            transform: rotate(35deg);
+
+            animation:
+                cair 8s linear infinite;
+
+            pointer-events: none;
+
+            z-index: 1;
+        }
+
+        .cadente-2 {
+            animation-delay: 2.7s;
+        }
+
+        .cadente-3 {
+            animation-delay: 5.4s;
+        }
+
+        @keyframes cair {
+            0% {
+                opacity: 0;
+
+                transform:
+                    translate(-200px, -150px)
+                    rotate(35deg);
+            }
+
+            7% {
+                opacity: 1;
+            }
+
+            28% {
+                opacity: 0;
+
+                transform:
+                    translate(140vw, 105vh)
+                    rotate(35deg);
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        /* Lua */
+
+        .lua {
+            position: fixed;
+
+            top: 5%;
+            right: 6%;
+
+            width: 90px;
+            height: 90px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle at 35% 30%,
+                    #ffffff,
+                    #fff2c4 55%,
+                    #d5bd76 100%
+                );
+
+            box-shadow:
+                0 0 25px rgba(255, 244, 194, 0.75),
+                0 0 75px rgba(255, 244, 194, 0.35);
+
+            opacity: 0.85;
+
+            animation:
+                flutuar 5s ease-in-out infinite;
+
+            transition:
+                opacity 1.5s ease;
+
+            z-index: 2;
+        }
+
+        @keyframes flutuar {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        /* Corações */
+
+        .coracao {
+            position: fixed;
+
+            bottom: -60px;
+
+            opacity: 0;
+
+            pointer-events: none;
+
+            animation:
+                subir 10s linear infinite;
+
+            z-index: 2;
+        }
+
+        @keyframes subir {
+            0% {
+                opacity: 0;
+
+                transform:
+                    translateY(0)
+                    rotate(0deg);
+            }
+
+            15% {
+                opacity: 0.8;
+            }
+
+            80% {
+                opacity: 0.45;
+            }
+
+            100% {
+                opacity: 0;
+
+                transform:
+                    translateY(-120vh)
+                    rotate(35deg);
+            }
+        }
+
+        /* Conteúdo principal */
+
+        main {
+            position: relative;
+
+            width: min(92%, 900px);
+
+            padding: 50px 28px;
+
+            text-align: center;
+
+            z-index: 5;
+        }
+
+        .pequeno {
+            margin-bottom: 14px;
+
+            color: #dbc7ff;
+
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s ease;
+        }
+
+        h1 {
+            margin:
+                0
+                0
+                20px;
+
+            font-size:
+                clamp(
+                    38px,
+                    7vw,
+                    68px
+                );
+
+            text-shadow:
+                0 0 25px rgba(255, 255, 255, 0.25),
+                0 0 50px rgba(221, 119, 255, 0.35);
+
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s ease;
+        }
+
+        .introducao {
+            max-width: 680px;
+
+            margin:
+                0
+                auto
+                35px;
+
+            font-size:
+                clamp(
+                    18px,
+                    3vw,
+                    22px
+                );
+
+            line-height: 1.7;
+
+            color: #e4d9eb;
+
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s ease;
+        }
+
+        /* Caixa das frases */
+
+        .caixa {
+            position: relative;
+
+            width: min(100%, 760px);
+            min-height: 330px;
+
+            margin: 0 auto;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            padding: 40px 30px;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.15);
+
+            border-radius: 30px;
+
+            background:
+                rgba(19, 6, 32, 0.72);
+
+            backdrop-filter: blur(13px);
+
+            box-shadow:
+                0 28px 90px rgba(0, 0, 0, 0.6),
+                0 0 55px rgba(221, 119, 255, 0.17);
+
+            overflow: hidden;
+        }
+
+        #coracaoCentral {
+            margin-bottom: 18px;
+
+            font-size:
+                clamp(
+                    54px,
+                    9vw,
+                    82px
+                );
+
+            filter:
+                drop-shadow(
+                    0 0 18px
+                    rgba(255, 75, 120, 0.75)
+                );
+
+            animation:
+                bater 1.2s ease-in-out infinite;
+
+            transition:
+                opacity 0.7s ease,
+                transform 0.7s ease;
+        }
+
+        @keyframes bater {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            15% {
+                transform: scale(1.17);
+            }
+
+            30% {
+                transform: scale(1);
+            }
+
+            45% {
+                transform: scale(1.12);
+            }
+
+            65% {
+                transform: scale(1);
+            }
+        }
+
+        #prefixo {
+            min-height: 32px;
+
+            margin-bottom: 9px;
+
+            font-size:
+                clamp(
+                    19px,
+                    3vw,
+                    25px
+                );
+
+            color: #d8c8e3;
+
+            transition:
+                opacity 0.55s ease,
+                transform 0.55s ease;
+        }
+
+        #frase {
+            min-height: 90px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size:
+                clamp(
+                    31px,
+                    6vw,
+                    58px
+                );
+
+            font-weight: bold;
+            line-height: 1.25;
+
+            text-shadow:
+                0 0 20px rgba(255, 255, 255, 0.2),
+                0 0 38px rgba(228, 132, 255, 0.28);
+
+            transition:
+                opacity 0.65s ease,
+                transform 0.65s ease,
+                filter 0.65s ease;
+        }
+
+        .saindo {
+            opacity: 0;
+
+            transform:
+                translateY(-24px)
+                scale(0.92);
+
+            filter: blur(7px);
+        }
+
+        .entrando {
+            opacity: 0;
+
+            transform:
+                translateY(24px)
+                scale(0.92);
+
+            filter: blur(7px);
+        }
+
+        .visivel {
+            opacity: 1;
+
+            transform:
+                translateY(0)
+                scale(1);
+
+            filter: blur(0);
+        }
+
+        /* Progresso */
+
+        .progresso {
+            width: min(82%, 490px);
+            height: 5px;
+
+            margin-top: 29px;
+
+            overflow: hidden;
+
+            border-radius: 999px;
+
+            background:
+                rgba(255, 255, 255, 0.12);
+        }
+
+        #barra {
+            width: 0;
+            height: 100%;
+
+            border-radius: 999px;
+
+            background:
+                linear-gradient(
+                    to right,
+                    #bd82ff,
+                    #ff7bac,
+                    #ffffff
+                );
+
+            box-shadow:
+                0 0 14px rgba(235, 144, 255, 0.7);
+
+            transition:
+                width 0.8s ease;
+        }
+
+        /* Texto final */
+
+        #mensagemFinal {
+            display: none;
+
+            width: min(100%, 780px);
+
+            margin: 0 auto;
+
+            padding: 44px 30px;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.15);
+
+            border-radius: 30px;
+
+            background:
+                rgba(18, 5, 31, 0.86);
+
+            backdrop-filter: blur(14px);
+
+            box-shadow:
+                0 30px 100px rgba(0, 0, 0, 0.7),
+                0 0 65px rgba(220, 117, 255, 0.22);
+
+            animation:
+                revelarFinal 1.4s ease forwards;
+        }
+
+        #mensagemFinal.aberto {
+            display: block;
+        }
+
+        @keyframes revelarFinal {
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(35px)
+                    scale(0.92);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+        #mensagemFinal h2 {
+            margin:
+                0
+                0
+                22px;
+
+            font-size:
+                clamp(
+                    36px,
+                    7vw,
+                    65px
+                );
+
+            text-shadow:
+                0 0 25px rgba(255, 255, 255, 0.22),
+                0 0 50px rgba(230, 126, 255, 0.35);
+        }
+
+        #textoFinal {
+            min-height: 190px;
+
+            font-size:
+                clamp(
+                    19px,
+                    3.4vw,
+                    24px
+                );
+
+            line-height: 1.8;
+
+            white-space: pre-line;
+
+            color: #eee5f4;
+        }
+
+        #botaoFinal {
+            display: none;
+
+            margin-top: 28px;
+
+            padding: 17px 36px;
+
+            border: none;
+            border-radius: 999px;
+
+            font-size: 18px;
+            font-weight: bold;
+
+            color: #25072f;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #e6c9ff
+                );
+
+            box-shadow:
+                0 13px 40px
+                rgba(224, 150, 255, 0.36);
+
+            cursor: pointer;
+
+            animation:
+                revelarFinal 1.2s ease forwards;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        #botaoFinal:hover {
+            transform: scale(1.06);
+
+            box-shadow:
+                0 17px 50px
+                rgba(224, 150, 255, 0.55);
+        }
+
+        /* Coração criado no clique */
+
+        .coracao-clique {
+            position: fixed;
+
+            pointer-events: none;
+
+            font-size: 24px;
+
+            animation:
+                cliqueSubir 1.3s ease-out forwards;
+
+            z-index: 30;
+        }
+
+        @keyframes cliqueSubir {
+            from {
+                opacity: 1;
+
+                transform:
+                    translate(-50%, -50%)
+                    scale(0.7);
+            }
+
+            to {
+                opacity: 0;
+
+                transform:
+                    translate(-50%, -150px)
+                    scale(1.5)
+                    rotate(25deg);
+            }
+        }
+
+        @media (max-width: 600px) {
+            main {
+                width: 100%;
+
+                padding:
+                    90px
+                    14px
+                    40px;
+            }
+
+            .lua {
+                width: 63px;
+                height: 63px;
+
+                top: 3%;
+                right: 5%;
+            }
+
+            .caixa {
+                min-height: 350px;
+
+                padding:
+                    35px
+                    18px;
+
+                border-radius: 24px;
+            }
+
+            #frase {
+                min-height: 115px;
+            }
+
+            #mensagemFinal {
+                padding:
+                    36px
+                    20px;
+            }
+
+            #botaoFinal {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="ceu"></div>
+
+    <div class="lua"></div>
+
+    <div class="cadente"></div>
+    <div class="cadente cadente-2"></div>
+    <div class="cadente cadente-3"></div>
+
+    <main>
+
+        <div id="inicio">
+
+            <div class="pequeno">
+                Algumas coisas nunca vão mudar
+            </div>
+
+            <h1>
+                O meu amor não tem fim ❤️
+            </h1>
+
+            <p class="introducao">
+                Não importa quanto tempo passe,
+                onde estivermos ou quantas vidas existirem...
+            </p>
+
+            <section class="caixa">
+
+                <div id="coracaoCentral">
+                    ❤️
+                </div>
+
+                <div id="prefixo">
+                    Eu te amo...
+                </div>
+
+                <div
+                    id="frase"
+                    class="visivel"
+                >
+                    a cada segundo.
+                </div>
+
+                <div class="progresso">
+
+                    <div id="barra"></div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+        <section id="mensagemFinal">
+
+            <h2>
+                Eu escolheria você.
+            </h2>
+
+            <div id="textoFinal"></div>
+
+            <button
+                id="botaoFinal"
+                onclick="proximaParte()"
+            >
+                ✨ A última surpresa...
+            </button>
+
+        </section>
+
+    </main>
+
+    <script>
+        const frases = [
+            "a cada segundo. ❤️",
+            "a cada minuto. ❤️",
+            "a cada hora. ❤️",
+            "a cada dia. ❤️",
+            "a cada semana. ❤️",
+            "a cada mês. ❤️",
+            "a cada ano. ❤️",
+            "em qualquer cidade. ❤️",
+            "em qualquer país. ❤️",
+            "em qualquer planeta. ❤️",
+            "em qualquer galáxia. ❤️",
+            "em qualquer universo. ❤️",
+            "em qualquer realidade. ❤️",
+            "em qualquer vida. ❤️",
+            "para sempre. ❤️"
+        ];
+
+        const frase =
+            document.getElementById(
+                "frase"
+            );
+
+        const barra =
+            document.getElementById(
+                "barra"
+            );
+
+        const inicio =
+            document.getElementById(
+                "inicio"
+            );
+
+        const mensagemFinal =
+            document.getElementById(
+                "mensagemFinal"
+            );
+
+        const textoFinal =
+            document.getElementById(
+                "textoFinal"
+            );
+
+        const botaoFinal =
+            document.getElementById(
+                "botaoFinal"
+            );
+
+        let indiceAtual = 0;
+
+        /*
+            Quanto maior este número,
+            mais tempo cada frase permanece.
+
+            2400 = 2,4 segundos.
+        */
+
+        const tempoEntreFrases = 2400;
+
+        function trocarFrase() {
+
+            frase.classList.remove(
+                "visivel"
+            );
+
+            frase.classList.add(
+                "saindo"
+            );
+
+            setTimeout(() => {
+
+                indiceAtual++;
+
+                if (
+                    indiceAtual <
+                    frases.length
+                ) {
+
+                    frase.textContent =
+                        frases[indiceAtual];
+
+                    frase.classList.remove(
+                        "saindo"
+                    );
+
+                    frase.classList.add(
+                        "entrando"
+                    );
+
+                    barra.style.width =
+                        (
+                            (
+                                indiceAtual + 1
+                            ) /
+                            frases.length
+                        ) * 100 + "%";
+
+                    /*
+                        Quando chegar em
+                        "qualquer universo",
+                        todas as estrelas brilham.
+                    */
+
+                    if (indiceAtual === 11) {
+                        brilhoDoUniverso();
+                    }
+
+                    setTimeout(() => {
+
+                        frase.classList.remove(
+                            "entrando"
+                        );
+
+                        frase.classList.add(
+                            "visivel"
+                        );
+
+                    }, 80);
+
+                    setTimeout(
+                        trocarFrase,
+                        tempoEntreFrases
+                    );
+
+                } else {
+
+                    mostrarMensagemFinal();
+
+                }
+
+            }, 650);
+        }
+
+        barra.style.width =
+            100 / frases.length + "%";
+
+        setTimeout(
+            trocarFrase,
+            tempoEntreFrases
+        );
+
+        function brilhoDoUniverso() {
+
+            const estrelas =
+                document.querySelectorAll(
+                    ".estrela"
+                );
+
+            estrelas.forEach(
+                (estrela) => {
+
+                    estrela.classList.add(
+                        "brilho-forte"
+                    );
+
+                }
+            );
+
+            setTimeout(() => {
+
+                estrelas.forEach(
+                    (estrela) => {
+
+                        estrela.classList.remove(
+                            "brilho-forte"
+                        );
+
+                    }
+                );
+
+            }, 1800);
+        }
+
+        function mostrarMensagemFinal() {
+
+            inicio.style.transition =
+                "opacity 1.2s ease, transform 1.2s ease";
+
+            inicio.style.opacity =
+                "0";
+
+            inicio.style.transform =
+                "scale(0.9)";
+
+            document.body.classList.add(
+                "escuro"
+            );
+
+            document.querySelector(
+                ".lua"
+            ).style.opacity =
+                "0";
+
+            setTimeout(() => {
+
+                inicio.style.display =
+                    "none";
+
+                mensagemFinal.classList.add(
+                    "aberto"
+                );
+
+                escreverFinal();
+
+            }, 1400);
+        }
+
+        const mensagem = `Mesmo que o universo inteiro desaparecesse...
+eu ainda escolheria você.
+
+Se eu pudesse viver mil vidas...
+nas mil, eu procuraria você.
+
+Eu escolheria você nos dias felizes.
+Eu escolheria você nos dias difíceis.
+Eu escolheria você quando tudo estivesse bem.
+Eu escolheria você quando tudo parecesse complicado.
+
+Hoje.
+Amanhã.
+Daqui a dez anos.
+Daqui a cinquenta anos.
+Em qualquer universo.
+
+Você virou meu lugar favorito,
+meu sorriso favorito,
+minha pessoa favorita
+e o meu futuro favorito. ❤️`;
+
+        let letraAtual = 0;
+
+        function escreverFinal() {
+
+            if (
+                letraAtual <
+                mensagem.length
+            ) {
+
+                textoFinal.textContent +=
+                    mensagem.charAt(
+                        letraAtual
+                    );
+
+                letraAtual++;
+
+                setTimeout(
+                    escreverFinal,
+                    38
+                );
+
+            } else {
+
+                setTimeout(() => {
+
+                    botaoFinal.style.display =
+                        "inline-block";
+
+                    criarExplosaoDeCoracoes();
+
+                }, 700);
+            }
+        }
+
+        /*
+            Fundo estrelado.
+        */
+
+        const ceu =
+            document.getElementById(
+                "ceu"
+            );
+
+        for (let i = 0; i < 175; i++) {
+
+            const estrela =
+                document.createElement(
+                    "div"
+                );
+
+            estrela.classList.add(
+                "estrela"
+            );
+
+            estrela.style.left =
+                Math.random() * 100 + "%";
+
+            estrela.style.top =
+                Math.random() * 100 + "%";
+
+            const tamanho =
+                Math.random() * 3 + 1;
+
+            estrela.style.width =
+                tamanho + "px";
+
+            estrela.style.height =
+                tamanho + "px";
+
+            estrela.style.animationDelay =
+                Math.random() * 4 + "s";
+
+            estrela.style.animationDuration =
+                Math.random() * 3 + 1.5 + "s";
+
+            ceu.appendChild(
+                estrela
+            );
+        }
+
+        /*
+            Corações flutuando.
+        */
+
+        for (let i = 0; i < 14; i++) {
+
+            const coracao =
+                document.createElement(
+                    "div"
+                );
+
+            coracao.classList.add(
+                "coracao"
+            );
+
+            coracao.innerText =
+                Math.random() > 0.5
+                    ? "❤️"
+                    : "💜";
+
+            coracao.style.left =
+                Math.random() * 100 + "%";
+
+            coracao.style.animationDelay =
+                Math.random() * 10 + "s";
+
+            coracao.style.animationDuration =
+                Math.random() * 6 + 8 + "s";
+
+            coracao.style.fontSize =
+                Math.random() * 17 + 13 + "px";
+
+            document.body.appendChild(
+                coracao
+            );
+        }
+
+        /*
+            Coração no lugar do clique.
+        */
+
+        document.addEventListener(
+            "click",
+            (evento) => {
+
+                if (
+                    evento.target.tagName ===
+                    "BUTTON"
+                ) {
+                    return;
+                }
+
+                const coracao =
+                    document.createElement(
+                        "div"
+                    );
+
+                coracao.classList.add(
+                    "coracao-clique"
+                );
+
+                coracao.innerText =
+                    Math.random() > 0.5
+                        ? "❤️"
+                        : "💜";
+
+                coracao.style.left =
+                    evento.clientX + "px";
+
+                coracao.style.top =
+                    evento.clientY + "px";
+
+                document.body.appendChild(
+                    coracao
+                );
+
+                setTimeout(() => {
+
+                    coracao.remove();
+
+                }, 1400);
+            }
+        );
+
+        function criarExplosaoDeCoracoes() {
+
+            for (let i = 0; i < 40; i++) {
+
+                setTimeout(() => {
+
+                    const coracao =
+                        document.createElement(
+                            "div"
+                        );
+
+                    coracao.classList.add(
+                        "coracao-clique"
+                    );
+
+                    coracao.innerText =
+                        Math.random() > 0.5
+                            ? "❤️"
+                            : "💜";
+
+                    coracao.style.left =
+                        Math.random() * 100 + "vw";
+
+                    coracao.style.top =
+                        Math.random() * 100 + "vh";
+
+                    coracao.style.fontSize =
+                        Math.random() * 28 + 17 + "px";
+
+                    document.body.appendChild(
+                        coracao
+                    );
+
+                    setTimeout(() => {
+
+                        coracao.remove();
+
+                    }, 1400);
+
+                }, i * 55);
+            }
+        }
+
+        /*
+            Na próxima etapa criaremos final.html.
+        */
+
+        function proximaParte() {
+
+            alert(
+                "Agora vem a última surpresa do Universo da Elen ❤️"
+            );
+
+        }
+    </script>
+
+</body>
+
+</html>

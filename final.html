@@ -1,0 +1,1313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Nosso universo ❤️</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            width: 100%;
+            min-height: 100vh;
+            overflow: hidden;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+
+            background: #000;
+
+            transition: background 2s ease;
+        }
+
+        /* Universo */
+
+        #universo {
+            position: fixed;
+            inset: 0;
+
+            overflow: hidden;
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+        .estrela {
+            position: absolute;
+
+            border-radius: 50%;
+            background: white;
+
+            opacity: 0;
+
+            box-shadow:
+                0 0 7px white,
+                0 0 16px rgba(255, 255, 255, 0.85);
+
+            animation:
+                nascerEstrela 1.7s ease forwards,
+                piscar 2.6s ease-in-out infinite alternate;
+        }
+
+        @keyframes nascerEstrela {
+            from {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes piscar {
+            from {
+                opacity: 0.25;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Nebulosa */
+
+        .nebulosa {
+            position: fixed;
+            inset: -25%;
+
+            opacity: 0;
+
+            background:
+                radial-gradient(
+                    circle at 35% 45%,
+                    rgba(176, 83, 255, 0.25),
+                    transparent 28%
+                ),
+                radial-gradient(
+                    circle at 70% 55%,
+                    rgba(255, 84, 160, 0.18),
+                    transparent 31%
+                ),
+                radial-gradient(
+                    circle at 50% 20%,
+                    rgba(82, 122, 255, 0.16),
+                    transparent 27%
+                );
+
+            filter: blur(25px);
+
+            animation:
+                aparecerNebulosa 5s ease forwards,
+                moverNebulosa 15s ease-in-out infinite alternate;
+
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+        @keyframes aparecerNebulosa {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes moverNebulosa {
+            from {
+                transform:
+                    translate(-2%, -2%)
+                    scale(1);
+            }
+
+            to {
+                transform:
+                    translate(3%, 3%)
+                    scale(1.08);
+            }
+        }
+
+        /* Estrelas cadentes */
+
+        .cadente {
+            position: fixed;
+
+            top: -100px;
+            left: -250px;
+
+            width: 230px;
+            height: 2px;
+
+            opacity: 0;
+
+            background:
+                linear-gradient(
+                    to right,
+                    transparent,
+                    white
+                );
+
+            transform: rotate(35deg);
+
+            animation:
+                cair 8s linear infinite;
+
+            pointer-events: none;
+
+            z-index: 1;
+        }
+
+        .cadente-2 {
+            animation-delay: 2.6s;
+        }
+
+        .cadente-3 {
+            animation-delay: 5.2s;
+        }
+
+        @keyframes cair {
+            0% {
+                opacity: 0;
+
+                transform:
+                    translate(-200px, -150px)
+                    rotate(35deg);
+            }
+
+            7% {
+                opacity: 1;
+            }
+
+            28% {
+                opacity: 0;
+
+                transform:
+                    translate(140vw, 105vh)
+                    rotate(35deg);
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        /* Tela inicial preta */
+
+        #abertura {
+            position: fixed;
+            inset: 0;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            background: #000;
+
+            z-index: 40;
+
+            transition:
+                opacity 1.5s ease,
+                visibility 1.5s ease;
+        }
+
+        #abertura.sumir {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        #estrelaInicial {
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            background: white;
+
+            box-shadow:
+                0 0 12px white,
+                0 0 30px white,
+                0 0 70px rgba(215, 138, 255, 0.9);
+
+            opacity: 0;
+
+            animation:
+                nascerPrimeiraEstrela 2.5s ease forwards,
+                pulsarEstrela 1.5s ease-in-out infinite;
+        }
+
+        @keyframes nascerPrimeiraEstrela {
+            0% {
+                opacity: 0;
+                transform: scale(0);
+            }
+
+            65% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(2);
+            }
+        }
+
+        @keyframes pulsarEstrela {
+            0%,
+            100% {
+                box-shadow:
+                    0 0 12px white,
+                    0 0 30px white,
+                    0 0 70px rgba(215, 138, 255, 0.8);
+            }
+
+            50% {
+                box-shadow:
+                    0 0 20px white,
+                    0 0 55px white,
+                    0 0 120px rgba(235, 157, 255, 1);
+            }
+        }
+
+        /* Conteúdo */
+
+        main {
+            position: relative;
+
+            width: min(94%, 950px);
+
+            padding: 35px 20px;
+
+            text-align: center;
+
+            z-index: 5;
+        }
+
+        #cinema {
+            min-height: 430px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            transition:
+                opacity 1.2s ease,
+                transform 1.2s ease;
+        }
+
+        #icone {
+            margin-bottom: 20px;
+
+            font-size:
+                clamp(
+                    52px,
+                    9vw,
+                    88px
+                );
+
+            filter:
+                drop-shadow(
+                    0 0 22px
+                    rgba(255, 87, 143, 0.8)
+                );
+
+            animation:
+                bater 1.3s ease-in-out infinite;
+        }
+
+        @keyframes bater {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            17% {
+                transform: scale(1.17);
+            }
+
+            34% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.12);
+            }
+
+            70% {
+                transform: scale(1);
+            }
+        }
+
+        #fraseCinema {
+            max-width: 850px;
+
+            min-height: 145px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size:
+                clamp(
+                    30px,
+                    6vw,
+                    62px
+                );
+
+            font-weight: bold;
+            line-height: 1.25;
+
+            text-shadow:
+                0 0 25px rgba(255, 255, 255, 0.24),
+                0 0 52px rgba(223, 119, 255, 0.38);
+
+            transition:
+                opacity 0.8s ease,
+                transform 0.8s ease,
+                filter 0.8s ease;
+        }
+
+        .saindo {
+            opacity: 0;
+
+            transform:
+                translateY(-28px)
+                scale(0.94);
+
+            filter: blur(8px);
+        }
+
+        .entrando {
+            opacity: 0;
+
+            transform:
+                translateY(28px)
+                scale(0.94);
+
+            filter: blur(8px);
+        }
+
+        .visivel {
+            opacity: 1;
+
+            transform:
+                translateY(0)
+                scale(1);
+
+            filter: blur(0);
+        }
+
+        /* Nome final */
+
+        #grandeFinal {
+            display: none;
+
+            width: min(100%, 900px);
+
+            margin: 0 auto;
+
+            padding: 45px 30px;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.15);
+
+            border-radius: 32px;
+
+            background:
+                rgba(16, 4, 29, 0.73);
+
+            backdrop-filter: blur(14px);
+
+            box-shadow:
+                0 30px 100px rgba(0, 0, 0, 0.75),
+                0 0 70px rgba(220, 117, 255, 0.24);
+
+            animation:
+                aparecerFinal 1.6s ease forwards;
+        }
+
+        #grandeFinal.aberto {
+            display: block;
+        }
+
+        @keyframes aparecerFinal {
+            from {
+                opacity: 0;
+
+                transform:
+                    translateY(45px)
+                    scale(0.9);
+            }
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+        .pequeno {
+            margin-bottom: 12px;
+
+            color: #d8c4e6;
+
+            font-size: 14px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        #grandeFinal h1 {
+            margin:
+                0
+                0
+                14px;
+
+            font-size:
+                clamp(
+                    55px,
+                    11vw,
+                    108px
+                );
+
+            line-height: 1;
+
+            text-shadow:
+                0 0 25px rgba(255, 255, 255, 0.25),
+                0 0 60px rgba(229, 132, 255, 0.5);
+        }
+
+        #grandeFinal h2 {
+            margin:
+                0
+                0
+                25px;
+
+            font-size:
+                clamp(
+                    31px,
+                    6vw,
+                    57px
+                );
+
+            color: #f7eaff;
+        }
+
+        #textoFinal {
+            max-width: 720px;
+            min-height: 270px;
+
+            margin: 0 auto;
+
+            font-size:
+                clamp(
+                    18px,
+                    3.3vw,
+                    23px
+                );
+
+            line-height: 1.85;
+
+            white-space: pre-line;
+
+            color: #eee5f4;
+        }
+
+        #assinatura {
+            opacity: 0;
+
+            margin-top: 25px;
+
+            font-size:
+                clamp(
+                    20px,
+                    4vw,
+                    29px
+                );
+
+            font-style: italic;
+
+            color: #f1dfff;
+
+            transition: opacity 1.5s ease;
+        }
+
+        #assinatura.visivel {
+            opacity: 1;
+        }
+
+        #botaoRecomecar {
+            display: none;
+
+            margin-top: 31px;
+
+            padding: 18px 38px;
+
+            border: none;
+            border-radius: 999px;
+
+            font-size: 18px;
+            font-weight: bold;
+
+            color: #25072f;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #e4c5ff
+                );
+
+            box-shadow:
+                0 14px 45px
+                rgba(224, 150, 255, 0.4);
+
+            cursor: pointer;
+
+            animation:
+                aparecerFinal 1.2s ease forwards;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        #botaoRecomecar:hover {
+            transform: scale(1.06);
+
+            box-shadow:
+                0 18px 55px
+                rgba(224, 150, 255, 0.6);
+        }
+
+        .versao {
+            opacity: 0;
+
+            margin-top: 22px;
+
+            font-size: 13px;
+            letter-spacing: 2px;
+
+            color: #9f8aaa;
+
+            transition: opacity 1.5s ease;
+        }
+
+        .versao.visivel {
+            opacity: 1;
+        }
+
+        /* Corações do final */
+
+        .coracao {
+            position: fixed;
+
+            bottom: -70px;
+
+            pointer-events: none;
+
+            animation:
+                subirCoracao linear forwards;
+
+            z-index: 20;
+        }
+
+        @keyframes subirCoracao {
+            from {
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    rotate(0deg)
+                    scale(0.8);
+            }
+
+            to {
+                opacity: 0;
+
+                transform:
+                    translateY(-125vh)
+                    rotate(45deg)
+                    scale(1.5);
+            }
+        }
+
+        /* Fogos */
+
+        .particula {
+            position: fixed;
+
+            width: 8px;
+            height: 8px;
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            animation:
+                explodir 1.7s ease-out forwards;
+
+            z-index: 25;
+        }
+
+        @keyframes explodir {
+            from {
+                opacity: 1;
+
+                transform:
+                    translate(0, 0)
+                    scale(1);
+            }
+
+            to {
+                opacity: 0;
+
+                transform:
+                    translate(
+                        var(--x),
+                        var(--y)
+                    )
+                    scale(0);
+            }
+        }
+
+        @media (max-width: 600px) {
+            main {
+                width: 100%;
+
+                padding:
+                    25px
+                    12px;
+            }
+
+            #cinema {
+                min-height: 380px;
+            }
+
+            #grandeFinal {
+                padding:
+                    36px
+                    20px;
+
+                border-radius: 25px;
+            }
+
+            #textoFinal {
+                min-height: 330px;
+            }
+
+            #botaoRecomecar {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Começo no escuro -->
+    <div id="abertura">
+
+        <div id="estrelaInicial"></div>
+
+    </div>
+
+    <!-- Universo -->
+    <div id="universo"></div>
+
+    <div class="nebulosa"></div>
+
+    <div class="cadente"></div>
+    <div class="cadente cadente-2"></div>
+    <div class="cadente cadente-3"></div>
+
+    <main>
+
+        <!-- Sequência cinematográfica -->
+        <section id="cinema">
+
+            <div id="icone">
+                ✨
+            </div>
+
+            <div
+                id="fraseCinema"
+                class="visivel"
+            >
+                Antes de você...
+            </div>
+
+        </section>
+
+        <!-- Grande final -->
+        <section id="grandeFinal">
+
+            <div class="pequeno">
+                Em qualquer universo
+            </div>
+
+            <h1>
+                ELEN
+            </h1>
+
+            <h2>
+                Eu te amo. ❤️
+            </h2>
+
+            <div id="textoFinal"></div>
+
+            <div id="assinatura">
+                Com todo o meu amor, Davi. ❤️
+            </div>
+
+            <button
+                id="botaoRecomecar"
+                onclick="recomecarHistoria()"
+            >
+                ❤️ Continuar escrevendo nossa história
+            </button>
+
+            <div
+                id="versao"
+                class="versao"
+            >
+                UNIVERSO DA ELEN — VERSÃO 1.0
+            </div>
+
+        </section>
+
+    </main>
+
+    <script>
+        const frases = [
+            "Antes de você...",
+            "eu não imaginava que alguém pudesse mudar tanto os meus dias.",
+            "Obrigado por cada mensagem.",
+            "Obrigado por cada ligação.",
+            "Obrigado por cada risada.",
+            "Obrigado por cada vez que você cuidou de mim.",
+            "Obrigado por me fazer sentir especial.",
+            "Obrigado por existir.",
+            "Você virou meu lugar favorito.",
+            "Minha pessoa favorita.",
+            "E uma das melhores partes da minha vida.",
+            "Hoje.",
+            "Amanhã.",
+            "Daqui a dez anos.",
+            "Daqui a cinquenta anos.",
+            "Em qualquer universo...",
+            "eu ainda escolheria você."
+        ];
+
+        const fraseCinema =
+            document.getElementById(
+                "fraseCinema"
+            );
+
+        const icone =
+            document.getElementById(
+                "icone"
+            );
+
+        const cinema =
+            document.getElementById(
+                "cinema"
+            );
+
+        const grandeFinal =
+            document.getElementById(
+                "grandeFinal"
+            );
+
+        const textoFinal =
+            document.getElementById(
+                "textoFinal"
+            );
+
+        const assinatura =
+            document.getElementById(
+                "assinatura"
+            );
+
+        const botaoRecomecar =
+            document.getElementById(
+                "botaoRecomecar"
+            );
+
+        const versao =
+            document.getElementById(
+                "versao"
+            );
+
+        let indice = 0;
+
+        /*
+            Quanto maior o número,
+            mais tempo cada frase fica.
+
+            2600 = 2,6 segundos.
+        */
+        const tempoDaFrase = 2600;
+
+        /*
+            Depois de alguns segundos,
+            o universo nasce.
+        */
+
+        setTimeout(() => {
+
+            document.getElementById(
+                "abertura"
+            ).classList.add(
+                "sumir"
+            );
+
+            criarUniverso();
+
+        }, 3200);
+
+        /*
+            Começa a sequência das frases.
+        */
+
+        setTimeout(
+            trocarFrase,
+            5000
+        );
+
+        function trocarFrase() {
+
+            fraseCinema.classList.remove(
+                "visivel"
+            );
+
+            fraseCinema.classList.add(
+                "saindo"
+            );
+
+            setTimeout(() => {
+
+                indice++;
+
+                if (
+                    indice <
+                    frases.length
+                ) {
+
+                    fraseCinema.textContent =
+                        frases[indice];
+
+                    fraseCinema.classList.remove(
+                        "saindo"
+                    );
+
+                    fraseCinema.classList.add(
+                        "entrando"
+                    );
+
+                    /*
+                        Troca o símbolo em
+                        momentos especiais.
+                    */
+
+                    if (indice === 3) {
+                        icone.textContent = "📞";
+                    }
+
+                    if (indice === 4) {
+                        icone.textContent = "😊";
+                    }
+
+                    if (indice === 7) {
+                        icone.textContent = "❤️";
+                    }
+
+                    if (indice === 15) {
+                        icone.textContent = "🌌";
+                        explosaoDeEstrelas();
+                    }
+
+                    if (indice === 16) {
+                        icone.textContent = "❤️";
+                    }
+
+                    setTimeout(() => {
+
+                        fraseCinema.classList.remove(
+                            "entrando"
+                        );
+
+                        fraseCinema.classList.add(
+                            "visivel"
+                        );
+
+                    }, 80);
+
+                    setTimeout(
+                        trocarFrase,
+                        tempoDaFrase
+                    );
+
+                } else {
+
+                    abrirGrandeFinal();
+
+                }
+
+            }, 750);
+        }
+
+        function criarUniverso() {
+
+            const universo =
+                document.getElementById(
+                    "universo"
+                );
+
+            for (let i = 0; i < 210; i++) {
+
+                const estrela =
+                    document.createElement(
+                        "div"
+                    );
+
+                estrela.classList.add(
+                    "estrela"
+                );
+
+                estrela.style.left =
+                    Math.random() * 100 + "%";
+
+                estrela.style.top =
+                    Math.random() * 100 + "%";
+
+                const tamanho =
+                    Math.random() * 3.5 + 1;
+
+                estrela.style.width =
+                    tamanho + "px";
+
+                estrela.style.height =
+                    tamanho + "px";
+
+                estrela.style.animationDelay =
+                    Math.random() * 5 + "s";
+
+                estrela.style.animationDuration =
+                    Math.random() * 3 + 1.8 + "s";
+
+                universo.appendChild(
+                    estrela
+                );
+            }
+        }
+
+        function explosaoDeEstrelas() {
+
+            for (let i = 0; i < 7; i++) {
+
+                setTimeout(() => {
+
+                    criarFogos(
+                        Math.random() *
+                        window.innerWidth,
+
+                        Math.random() *
+                        window.innerHeight *
+                        0.75
+                    );
+
+                }, i * 280);
+            }
+        }
+
+        function abrirGrandeFinal() {
+
+            cinema.style.opacity = "0";
+            cinema.style.transform =
+                "scale(0.88)";
+
+            setTimeout(() => {
+
+                cinema.style.display =
+                    "none";
+
+                grandeFinal.classList.add(
+                    "aberto"
+                );
+
+                criarChuvaDeCoracoes();
+
+                escreverMensagemFinal();
+
+            }, 1400);
+        }
+
+        const mensagem = `Se você chegou até aqui,
+é porque conheceu um pouco de tudo o que existe dentro do meu coração.
+
+Este universo foi criado para tentar mostrar algo que palavras sozinhas nunca conseguiriam explicar.
+
+Você trouxe paz para os meus dias.
+Trouxe risadas para os momentos difíceis.
+Virou parte da minha rotina,
+dos meus pensamentos
+e dos meus sonhos.
+
+Eu quero continuar conhecendo você,
+criando lembranças,
+fazendo ligações,
+rindo,
+jogando,
+te irritando um pouquinho
+e amando cada novo detalhe seu.
+
+Não sei exatamente tudo o que o futuro guarda,
+mas sei que quero viver cada capítulo ao seu lado.
+
+Isso não é o fim.
+
+É apenas o começo do nosso universo.
+
+Hoje.
+Amanhã.
+Em qualquer vida.
+Em qualquer realidade.
+Em qualquer universo.
+
+Eu escolheria você outra vez. ❤️`;
+
+        let letraAtual = 0;
+
+        function escreverMensagemFinal() {
+
+            if (
+                letraAtual <
+                mensagem.length
+            ) {
+
+                textoFinal.textContent +=
+                    mensagem.charAt(
+                        letraAtual
+                    );
+
+                letraAtual++;
+
+                setTimeout(
+                    escreverMensagemFinal,
+                    36
+                );
+
+            } else {
+
+                setTimeout(() => {
+
+                    assinatura.classList.add(
+                        "visivel"
+                    );
+
+                }, 600);
+
+                setTimeout(() => {
+
+                    botaoRecomecar.style.display =
+                        "inline-block";
+
+                    versao.classList.add(
+                        "visivel"
+                    );
+
+                    grandeExplosaoFinal();
+
+                }, 1700);
+            }
+        }
+
+        function criarChuvaDeCoracoes() {
+
+            let criados = 0;
+
+            const intervalo =
+                setInterval(() => {
+
+                    const coracao =
+                        document.createElement(
+                            "div"
+                        );
+
+                    coracao.classList.add(
+                        "coracao"
+                    );
+
+                    const tipos = [
+                        "❤️",
+                        "💜",
+                        "💗",
+                        "💕"
+                    ];
+
+                    coracao.textContent =
+                        tipos[
+                            Math.floor(
+                                Math.random() *
+                                tipos.length
+                            )
+                        ];
+
+                    coracao.style.left =
+                        Math.random() *
+                        100 + "vw";
+
+                    coracao.style.fontSize =
+                        Math.random() *
+                        25 + 15 + "px";
+
+                    coracao.style.animationDuration =
+                        Math.random() *
+                        4 + 5 + "s";
+
+                    document.body.appendChild(
+                        coracao
+                    );
+
+                    setTimeout(() => {
+
+                        coracao.remove();
+
+                    }, 9500);
+
+                    criados++;
+
+                    if (criados >= 80) {
+
+                        clearInterval(
+                            intervalo
+                        );
+
+                    }
+
+                }, 130);
+        }
+
+        function criarFogos(x, y) {
+
+            for (let i = 0; i < 30; i++) {
+
+                const particula =
+                    document.createElement(
+                        "div"
+                    );
+
+                particula.classList.add(
+                    "particula"
+                );
+
+                const angulo =
+                    Math.random() *
+                    Math.PI *
+                    2;
+
+                const distancia =
+                    Math.random() *
+                    150 + 40;
+
+                particula.style.left =
+                    x + "px";
+
+                particula.style.top =
+                    y + "px";
+
+                particula.style.setProperty(
+                    "--x",
+                    Math.cos(angulo) *
+                    distancia + "px"
+                );
+
+                particula.style.setProperty(
+                    "--y",
+                    Math.sin(angulo) *
+                    distancia + "px"
+                );
+
+                const cores = [
+                    "#ffffff",
+                    "#f2c8ff",
+                    "#ff8fbd",
+                    "#b58aff",
+                    "#fff1a8"
+                ];
+
+                particula.style.background =
+                    cores[
+                        Math.floor(
+                            Math.random() *
+                            cores.length
+                        )
+                    ];
+
+                particula.style.boxShadow =
+                    "0 0 12px currentColor";
+
+                document.body.appendChild(
+                    particula
+                );
+
+                setTimeout(() => {
+
+                    particula.remove();
+
+                }, 1800);
+            }
+        }
+
+        function grandeExplosaoFinal() {
+
+            for (let i = 0; i < 12; i++) {
+
+                setTimeout(() => {
+
+                    criarFogos(
+                        Math.random() *
+                        window.innerWidth,
+
+                        Math.random() *
+                        window.innerHeight *
+                        0.75
+                    );
+
+                }, i * 380);
+            }
+        }
+
+        /*
+            Volta para o começo do site.
+        */
+
+        function recomecarHistoria() {
+
+            window.location.href =
+                "index.html";
+
+        }
+    </script>
+
+</body>
+
+</html>

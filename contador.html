@@ -1,1 +1,836 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>O tempo da nossa história ❤️</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            padding: 90px 20px;
+
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+
+            background:
+                radial-gradient(
+                    circle at 50% 30%,
+                    #3a1257 0%,
+                    #170822 38%,
+                    #06010c 75%,
+                    #000000 100%
+                );
+        }
+
+        /* Céu estrelado */
+
+        #estrelas {
+            position: fixed;
+            inset: 0;
+
+            overflow: hidden;
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+        .estrela {
+            position: absolute;
+
+            border-radius: 50%;
+            background: white;
+
+            box-shadow:
+                0 0 6px white,
+                0 0 12px rgba(255, 255, 255, 0.75);
+
+            animation:
+                piscar 2.5s infinite alternate;
+        }
+
+        @keyframes piscar {
+            from {
+                opacity: 0.15;
+                transform: scale(0.7);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1.35);
+            }
+        }
+
+        /* Lua */
+
+        .lua {
+            position: fixed;
+
+            top: 5%;
+            right: 6%;
+
+            width: 90px;
+            height: 90px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle at 35% 30%,
+                    #ffffff,
+                    #fff2c4 55%,
+                    #d5bd76 100%
+                );
+
+            box-shadow:
+                0 0 25px rgba(255, 244, 194, 0.7),
+                0 0 70px rgba(255, 244, 194, 0.3);
+
+            opacity: 0.85;
+
+            animation:
+                flutuar 5s ease-in-out infinite;
+
+            z-index: 1;
+        }
+
+        @keyframes flutuar {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        /* Estrelas cadentes */
+
+        .cadente {
+            position: fixed;
+
+            top: -100px;
+            left: -250px;
+
+            width: 220px;
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    to right,
+                    transparent,
+                    white
+                );
+
+            opacity: 0;
+            pointer-events: none;
+
+            transform: rotate(35deg);
+
+            animation:
+                cair 9s linear infinite;
+
+            z-index: 1;
+        }
+
+        .cadente-2 {
+            animation-delay: 4.5s;
+        }
+
+        @keyframes cair {
+            0% {
+                opacity: 0;
+
+                transform:
+                    translate(-200px, -150px)
+                    rotate(35deg);
+            }
+
+            8% {
+                opacity: 1;
+            }
+
+            28% {
+                opacity: 0;
+
+                transform:
+                    translate(135vw, 100vh)
+                    rotate(35deg);
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        /* Corações */
+
+        .coracao {
+            position: fixed;
+
+            bottom: -50px;
+
+            opacity: 0;
+            pointer-events: none;
+
+            animation:
+                subir 11s linear infinite;
+
+            z-index: 1;
+        }
+
+        @keyframes subir {
+            0% {
+                opacity: 0;
+
+                transform:
+                    translateY(0)
+                    rotate(0deg);
+            }
+
+            15% {
+                opacity: 0.8;
+            }
+
+            80% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 0;
+
+                transform:
+                    translateY(-120vh)
+                    rotate(35deg);
+            }
+        }
+
+        /* Conteúdo principal */
+
+        main {
+            position: relative;
+            z-index: 5;
+
+            width: min(94%, 1050px);
+
+            text-align: center;
+        }
+
+        .pequeno {
+            margin-bottom: 12px;
+
+            color: #dbc7ff;
+
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin:
+                0
+                0
+                18px;
+
+            font-size:
+                clamp(
+                    38px,
+                    7vw,
+                    66px
+                );
+
+            text-shadow:
+                0 0 25px rgba(255, 255, 255, 0.2),
+                0 0 45px rgba(218, 111, 255, 0.28);
+        }
+
+        .introducao {
+            max-width: 720px;
+
+            margin:
+                0
+                auto
+                42px;
+
+            font-size:
+                clamp(
+                    18px,
+                    3vw,
+                    22px
+                );
+
+            line-height: 1.7;
+            color: #e6dbea;
+        }
+
+        /* Contador */
+
+        .contador {
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    minmax(0, 1fr)
+                );
+
+            gap: 22px;
+
+            margin:
+                0
+                auto
+                42px;
+        }
+
+        .tempo {
+            padding:
+                32px
+                15px;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.14);
+
+            border-radius: 26px;
+
+            background:
+                rgba(21, 7, 35, 0.72);
+
+            backdrop-filter: blur(12px);
+
+            box-shadow:
+                0 22px 65px rgba(0, 0, 0, 0.5),
+                0 0 35px rgba(218, 112, 255, 0.12);
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .tempo:hover {
+            transform:
+                translateY(-7px);
+
+            box-shadow:
+                0 28px 80px rgba(0, 0, 0, 0.6),
+                0 0 45px rgba(225, 145, 255, 0.25);
+        }
+
+        .numero {
+            display: block;
+
+            margin-bottom: 8px;
+
+            font-size:
+                clamp(
+                    42px,
+                    7vw,
+                    72px
+                );
+
+            font-weight: bold;
+
+            text-shadow:
+                0 0 18px rgba(255, 255, 255, 0.25);
+        }
+
+        .nome {
+            display: block;
+
+            color: #d9cae3;
+
+            font-size:
+                clamp(
+                    15px,
+                    2.6vw,
+                    19px
+                );
+
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* Mensagem */
+
+        .mensagem {
+            width: min(100%, 820px);
+
+            margin: 0 auto;
+
+            padding: 38px 30px;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.14);
+
+            border-radius: 28px;
+
+            background:
+                rgba(20, 6, 34, 0.72);
+
+            backdrop-filter: blur(12px);
+
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.52),
+                0 0 45px rgba(216, 115, 255, 0.15);
+        }
+
+        .mensagem h2 {
+            margin:
+                0
+                0
+                15px;
+
+            font-size:
+                clamp(
+                    29px,
+                    5vw,
+                    45px
+                );
+        }
+
+        .mensagem p {
+            max-width: 670px;
+
+            margin: 0 auto;
+
+            font-size:
+                clamp(
+                    18px,
+                    3vw,
+                    21px
+                );
+
+            line-height: 1.75;
+            color: #dfd3e8;
+        }
+
+        .data-inicial {
+            margin-top: 20px;
+
+            color: #c9b8d5;
+
+            font-size: 15px;
+        }
+
+        button {
+            margin-top: 29px;
+
+            padding: 17px 34px;
+
+            border: none;
+            border-radius: 999px;
+
+            font-size: 18px;
+            font-weight: bold;
+
+            color: #25072f;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #e6c9ff
+                );
+
+            cursor: pointer;
+
+            box-shadow:
+                0 12px 35px
+                rgba(224, 150, 255, 0.3);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        button:hover {
+            transform: scale(1.06);
+
+            box-shadow:
+                0 16px 45px
+                rgba(224, 150, 255, 0.5);
+        }
+
+        @media (max-width: 800px) {
+            body {
+                padding:
+                    100px
+                    12px
+                    70px;
+            }
+
+            .contador {
+                grid-template-columns:
+                    repeat(
+                        2,
+                        minmax(0, 1fr)
+                    );
+
+                gap: 15px;
+            }
+
+            .tempo {
+                padding:
+                    25px
+                    10px;
+            }
+
+            .lua {
+                width: 65px;
+                height: 65px;
+
+                top: 3%;
+                right: 5%;
+            }
+
+            button {
+                width: 100%;
+                max-width: 360px;
+            }
+        }
+
+        @media (max-width: 420px) {
+            .numero {
+                font-size: 42px;
+            }
+
+            .nome {
+                font-size: 13px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="estrelas"></div>
+
+    <div class="lua"></div>
+
+    <div class="cadente"></div>
+    <div class="cadente cadente-2"></div>
+
+    <main>
+
+        <div class="pequeno">
+            Cada segundo ao seu lado importa
+        </div>
+
+        <h1>
+            O tempo da nossa história ❤️
+        </h1>
+
+        <p class="introducao">
+            Desde que você apareceu, meus dias ficaram diferentes.
+            E este contador guarda cada segundo desde o começo
+            dessa história tão especial.
+        </p>
+
+        <section class="contador">
+
+            <div class="tempo">
+
+                <span
+                    class="numero"
+                    id="dias"
+                >
+                    0
+                </span>
+
+                <span class="nome">
+                    Dias
+                </span>
+
+            </div>
+
+            <div class="tempo">
+
+                <span
+                    class="numero"
+                    id="horas"
+                >
+                    0
+                </span>
+
+                <span class="nome">
+                    Horas
+                </span>
+
+            </div>
+
+            <div class="tempo">
+
+                <span
+                    class="numero"
+                    id="minutos"
+                >
+                    0
+                </span>
+
+                <span class="nome">
+                    Minutos
+                </span>
+
+            </div>
+
+            <div class="tempo">
+
+                <span
+                    class="numero"
+                    id="segundos"
+                >
+                    0
+                </span>
+
+                <span class="nome">
+                    Segundos
+                </span>
+
+            </div>
+
+        </section>
+
+        <section class="mensagem">
+
+            <h2>
+                Parece pouco tempo...
+            </h2>
+
+            <p>
+                Mas foi tempo suficiente para você virar
+                uma das pessoas mais importantes da minha vida.
+                E o que mais me deixa feliz é saber que esse contador
+                ainda está apenas começando.
+            </p>
+
+            <div class="data-inicial">
+                Nossa história começou em
+                13 de junho de 2026, às 14:00 ❤️
+            </div>
+
+            <button onclick="proximaParte()">
+                Continuar para a próxima surpresa 🎵
+            </button>
+
+        </section>
+
+    </main>
+
+    <script>
+        /*
+            Data em que a história começou.
+
+            Mês 5 significa junho,
+            porque no JavaScript:
+            janeiro = 0
+            fevereiro = 1
+            ...
+            junho = 5
+        */
+
+        const dataInicial =
+            new Date(
+                2026,
+                5,
+                13,
+                14,
+                0,
+                0
+            );
+
+        function atualizarContador() {
+
+            const agora =
+                new Date();
+
+            let diferenca =
+                agora - dataInicial;
+
+            /*
+                Impede números negativos
+                caso a página seja testada
+                antes da data inicial.
+            */
+
+            if (diferenca < 0) {
+                diferenca = 0;
+            }
+
+            const segundosTotais =
+                Math.floor(
+                    diferenca / 1000
+                );
+
+            const dias =
+                Math.floor(
+                    segundosTotais / 86400
+                );
+
+            const horas =
+                Math.floor(
+                    (
+                        segundosTotais % 86400
+                    ) / 3600
+                );
+
+            const minutos =
+                Math.floor(
+                    (
+                        segundosTotais % 3600
+                    ) / 60
+                );
+
+            const segundos =
+                segundosTotais % 60;
+
+            document.getElementById(
+                "dias"
+            ).textContent =
+                dias;
+
+            document.getElementById(
+                "horas"
+            ).textContent =
+                String(horas).padStart(
+                    2,
+                    "0"
+                );
+
+            document.getElementById(
+                "minutos"
+            ).textContent =
+                String(minutos).padStart(
+                    2,
+                    "0"
+                );
+
+            document.getElementById(
+                "segundos"
+            ).textContent =
+                String(segundos).padStart(
+                    2,
+                    "0"
+                );
+        }
+
+        atualizarContador();
+
+        setInterval(
+            atualizarContador,
+            1000
+        );
+
+        /* Cria estrelas */
+
+        const estrelasContainer =
+            document.getElementById(
+                "estrelas"
+            );
+
+        for (let i = 0; i < 160; i++) {
+
+            const estrela =
+                document.createElement(
+                    "div"
+                );
+
+            estrela.classList.add(
+                "estrela"
+            );
+
+            estrela.style.left =
+                Math.random() * 100 + "%";
+
+            estrela.style.top =
+                Math.random() * 100 + "%";
+
+            const tamanho =
+                Math.random() * 3 + 1;
+
+            estrela.style.width =
+                tamanho + "px";
+
+            estrela.style.height =
+                tamanho + "px";
+
+            estrela.style.animationDelay =
+                Math.random() * 4 + "s";
+
+            estrela.style.animationDuration =
+                Math.random() * 3 + 1.5 + "s";
+
+            estrelasContainer.appendChild(
+                estrela
+            );
+        }
+
+        /* Cria corações */
+
+        for (let i = 0; i < 15; i++) {
+
+            const coracao =
+                document.createElement(
+                    "div"
+                );
+
+            coracao.classList.add(
+                "coracao"
+            );
+
+            coracao.innerText =
+                Math.random() > 0.5
+                    ? "❤️"
+                    : "💜";
+
+            coracao.style.left =
+                Math.random() * 100 + "%";
+
+            coracao.style.animationDelay =
+                Math.random() * 11 + "s";
+
+            coracao.style.animationDuration =
+                Math.random() * 6 + 9 + "s";
+
+            coracao.style.fontSize =
+                Math.random() * 15 + 13 + "px";
+
+            document.body.appendChild(
+                coracao
+            );
+        }
+
+        /*
+            Depois criaremos a página da música.
+        */
+
+        function proximaParte() {
+
+            alert(
+                "A próxima parte será a música da nossa história 🎵❤️"
+            );
+
+        }
+    </script>
+
+</body>
+
+</html>

@@ -1,1 +1,1084 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Nossas lembranças ❤️</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+
+            background:
+                radial-gradient(
+                    circle at 50% 15%,
+                    #381154 0%,
+                    #160720 40%,
+                    #06010c 75%,
+                    #000000 100%
+                );
+        }
+
+        /* Fundo estrelado */
+
+        #estrelas {
+            position: fixed;
+            inset: 0;
+
+            overflow: hidden;
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+        .estrela {
+            position: absolute;
+
+            border-radius: 50%;
+            background: white;
+
+            box-shadow:
+                0 0 6px white,
+                0 0 12px rgba(255, 255, 255, 0.75);
+
+            animation: piscar 2.5s infinite alternate;
+        }
+
+        @keyframes piscar {
+            from {
+                opacity: 0.15;
+                transform: scale(0.7);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1.35);
+            }
+        }
+
+        /* Estrelas cadentes */
+
+        .cadente {
+            position: fixed;
+
+            top: -100px;
+            left: -250px;
+
+            width: 220px;
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    to right,
+                    transparent,
+                    white
+                );
+
+            opacity: 0;
+            pointer-events: none;
+
+            transform: rotate(35deg);
+
+            animation: cair 9s linear infinite;
+
+            z-index: 1;
+        }
+
+        .cadente-2 {
+            animation-delay: 3s;
+        }
+
+        .cadente-3 {
+            animation-delay: 6s;
+        }
+
+        @keyframes cair {
+            0% {
+                opacity: 0;
+
+                transform:
+                    translate(-200px, -150px)
+                    rotate(35deg);
+            }
+
+            8% {
+                opacity: 1;
+            }
+
+            28% {
+                opacity: 0;
+
+                transform:
+                    translate(135vw, 100vh)
+                    rotate(35deg);
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        /* Lua */
+
+        .lua {
+            position: fixed;
+
+            top: 5%;
+            right: 6%;
+
+            width: 85px;
+            height: 85px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle at 35% 30%,
+                    #ffffff,
+                    #fff2c4 55%,
+                    #d6bf7b 100%
+                );
+
+            box-shadow:
+                0 0 25px rgba(255, 244, 194, 0.7),
+                0 0 70px rgba(255, 244, 194, 0.3);
+
+            opacity: 0.82;
+
+            animation: flutuar 5s ease-in-out infinite;
+
+            z-index: 1;
+        }
+
+        @keyframes flutuar {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        /* Corações flutuando */
+
+        .coracao {
+            position: fixed;
+            bottom: -50px;
+
+            color: rgba(255, 129, 185, 0.7);
+            opacity: 0;
+
+            pointer-events: none;
+
+            animation: subir 11s linear infinite;
+
+            z-index: 1;
+        }
+
+        @keyframes subir {
+            0% {
+                opacity: 0;
+
+                transform:
+                    translateY(0)
+                    rotate(0deg);
+            }
+
+            15% {
+                opacity: 0.75;
+            }
+
+            80% {
+                opacity: 0.45;
+            }
+
+            100% {
+                opacity: 0;
+
+                transform:
+                    translateY(-120vh)
+                    rotate(30deg);
+            }
+        }
+
+        /* Conteúdo */
+
+        main {
+            position: relative;
+            z-index: 5;
+
+            width: 100%;
+
+            padding:
+                70px
+                20px
+                100px;
+        }
+
+        .topo {
+            width: min(92%, 900px);
+
+            margin:
+                0
+                auto
+                50px;
+
+            text-align: center;
+        }
+
+        .pequeno {
+            margin-bottom: 12px;
+
+            color: #dbc7ff;
+
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin:
+                0
+                0
+                18px;
+
+            font-size:
+                clamp(
+                    38px,
+                    7vw,
+                    64px
+                );
+
+            text-shadow:
+                0 0 25px rgba(255, 255, 255, 0.2),
+                0 0 40px rgba(218, 111, 255, 0.25);
+        }
+
+        .introducao {
+            max-width: 700px;
+
+            margin: 0 auto;
+
+            font-size:
+                clamp(
+                    18px,
+                    3vw,
+                    22px
+                );
+
+            line-height: 1.7;
+            color: #e8deef;
+        }
+
+        /* Galeria */
+
+        .galeria {
+            width: min(94%, 1100px);
+
+            margin: 0 auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(0, 1fr)
+                );
+
+            gap: 32px;
+        }
+
+        .foto-card {
+            overflow: hidden;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.14);
+
+            border-radius: 26px;
+
+            background:
+                rgba(19, 7, 31, 0.72);
+
+            backdrop-filter: blur(12px);
+
+            box-shadow:
+                0 22px 65px rgba(0, 0, 0, 0.5),
+                0 0 35px rgba(213, 116, 255, 0.1);
+
+            opacity: 0;
+
+            transform:
+                translateY(60px)
+                scale(0.96);
+
+            transition:
+                opacity 1s ease,
+                transform 1s ease,
+                box-shadow 0.3s ease;
+        }
+
+        .foto-card.visivel {
+            opacity: 1;
+
+            transform:
+                translateY(0)
+                scale(1);
+        }
+
+        .foto-card:hover {
+            box-shadow:
+                0 28px 80px rgba(0, 0, 0, 0.6),
+                0 0 45px rgba(225, 145, 255, 0.25);
+        }
+
+        .imagem-area {
+            position: relative;
+
+            width: 100%;
+            aspect-ratio: 4 / 5;
+
+            overflow: hidden;
+
+            background: #0b0312;
+        }
+
+        .imagem-area img {
+            width: 100%;
+            height: 100%;
+
+            display: block;
+
+            object-fit: cover;
+
+            transition:
+                transform 0.7s ease,
+                filter 0.7s ease;
+        }
+
+        .foto-card:hover img {
+            transform: scale(1.05);
+
+            filter:
+                brightness(1.05)
+                saturate(1.05);
+        }
+
+        .numero {
+            position: absolute;
+
+            top: 16px;
+            left: 16px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 42px;
+            height: 42px;
+
+            border-radius: 50%;
+
+            font-weight: bold;
+
+            color: #25072f;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #e4c6ff
+                );
+
+            box-shadow:
+                0 8px 25px
+                rgba(0, 0, 0, 0.35);
+        }
+
+        .legenda {
+            padding: 25px 24px 29px;
+
+            text-align: center;
+        }
+
+        .legenda h2 {
+            margin:
+                0
+                0
+                10px;
+
+            font-size: 24px;
+        }
+
+        .legenda p {
+            margin: 0;
+
+            font-size: 17px;
+            line-height: 1.65;
+
+            color: #ded2e7;
+        }
+
+        /* Final da galeria */
+
+        .final {
+            width: min(92%, 820px);
+
+            margin:
+                70px
+                auto
+                0;
+
+            padding: 40px 28px;
+
+            text-align: center;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.14);
+
+            border-radius: 28px;
+
+            background:
+                rgba(18, 6, 31, 0.7);
+
+            backdrop-filter: blur(12px);
+
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.5),
+                0 0 45px rgba(216, 115, 255, 0.15);
+        }
+
+        .final h2 {
+            margin:
+                0
+                0
+                15px;
+
+            font-size:
+                clamp(
+                    29px,
+                    5vw,
+                    44px
+                );
+        }
+
+        .final p {
+            max-width: 650px;
+
+            margin: 0 auto;
+
+            font-size: 19px;
+            line-height: 1.7;
+
+            color: #dfd3e8;
+        }
+
+        button {
+            margin-top: 28px;
+
+            padding: 17px 34px;
+
+            border: none;
+            border-radius: 999px;
+
+            font-size: 18px;
+            font-weight: bold;
+
+            color: #25072f;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #e6c9ff
+                );
+
+            cursor: pointer;
+
+            box-shadow:
+                0 12px 35px
+                rgba(224, 150, 255, 0.3);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        button:hover {
+            transform: scale(1.06);
+
+            box-shadow:
+                0 16px 45px
+                rgba(224, 150, 255, 0.5);
+        }
+
+        /* Foto ampliada */
+
+        #modal {
+            position: fixed;
+            inset: 0;
+
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            padding: 24px;
+
+            background:
+                rgba(0, 0, 0, 0.9);
+
+            backdrop-filter: blur(8px);
+
+            z-index: 50;
+        }
+
+        #modal.aberto {
+            display: flex;
+        }
+
+        #modal img {
+            max-width: 92vw;
+            max-height: 86vh;
+
+            border-radius: 22px;
+
+            box-shadow:
+                0 25px 90px rgba(0, 0, 0, 0.8),
+                0 0 45px rgba(223, 137, 255, 0.25);
+        }
+
+        #fechar {
+            position: fixed;
+
+            top: 24px;
+            right: 28px;
+
+            width: 48px;
+            height: 48px;
+
+            border: none;
+            border-radius: 50%;
+
+            margin: 0;
+            padding: 0;
+
+            font-size: 28px;
+            color: white;
+
+            background:
+                rgba(255, 255, 255, 0.12);
+
+            cursor: pointer;
+        }
+
+        @media (max-width: 750px) {
+            main {
+                padding:
+                    90px
+                    12px
+                    70px;
+            }
+
+            .galeria {
+                grid-template-columns: 1fr;
+            }
+
+            .lua {
+                width: 64px;
+                height: 64px;
+
+                top: 3%;
+                right: 5%;
+            }
+
+            .foto-card {
+                border-radius: 22px;
+            }
+
+            button {
+                width: 100%;
+                max-width: 350px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="estrelas"></div>
+
+    <div class="cadente"></div>
+    <div class="cadente cadente-2"></div>
+    <div class="cadente cadente-3"></div>
+
+    <div class="lua"></div>
+
+    <main>
+
+        <section class="topo">
+
+            <div class="pequeno">
+                Um pedacinho de você que eu quis guardar
+            </div>
+
+            <h1>
+                Nossas lembranças ❤️
+            </h1>
+
+            <p class="introducao">
+                Cada foto sua carrega um detalhe que eu amo.
+                Um sorriso, um olhar, um momento ou simplesmente
+                a pessoa incrível que você é.
+            </p>
+
+        </section>
+
+        <section class="galeria">
+
+            <article class="foto-card">
+
+                <div
+                    class="imagem-area"
+                    onclick="abrirFoto('elen.1.png')"
+                >
+                    <img
+                        src="elen.1.png"
+                        alt="Foto especial da Elen"
+                    >
+
+                    <div class="numero">
+                        1
+                    </div>
+                </div>
+
+                <div class="legenda">
+
+                    <h2>
+                        Seu sorriso ❤️
+                    </h2>
+
+                    <p>
+                        Uma das coisas que consegue melhorar
+                        qualquer momento do meu dia.
+                    </p>
+
+                </div>
+
+            </article>
+
+            <article class="foto-card">
+
+                <div
+                    class="imagem-area"
+                    onclick="abrirFoto('elen.2.png')"
+                >
+                    <img
+                        src="elen.2.png"
+                        alt="Foto especial da Elen"
+                    >
+
+                    <div class="numero">
+                        2
+                    </div>
+                </div>
+
+                <div class="legenda">
+
+                    <h2>
+                        Seu olhar ✨
+                    </h2>
+
+                    <p>
+                        Tem alguma coisa nele que sempre
+                        consegue prender toda a minha atenção.
+                    </p>
+
+                </div>
+
+            </article>
+
+            <article class="foto-card">
+
+                <div
+                    class="imagem-area"
+                    onclick="abrirFoto('elen.3.png')"
+                >
+                    <img
+                        src="elen.3.png"
+                        alt="Foto especial da Elen"
+                    >
+
+                    <div class="numero">
+                        3
+                    </div>
+                </div>
+
+                <div class="legenda">
+
+                    <h2>
+                        Seu jeitinho 💗
+                    </h2>
+
+                    <p>
+                        É impossível não me apaixonar
+                        cada vez mais pela pessoa que você é.
+                    </p>
+
+                </div>
+
+            </article>
+
+            <article class="foto-card">
+
+                <div
+                    class="imagem-area"
+                    onclick="abrirFoto('elen.4.png')"
+                >
+                    <img
+                        src="elen.4.png"
+                        alt="Foto especial da Elen"
+                    >
+
+                    <div class="numero">
+                        4
+                    </div>
+                </div>
+
+                <div class="legenda">
+
+                    <h2>
+                        Sua beleza 🌙
+                    </h2>
+
+                    <p>
+                        Você é linda em cada detalhe,
+                        mas o que existe dentro de você
+                        consegue ser ainda mais bonito.
+                    </p>
+
+                </div>
+
+            </article>
+
+            <article class="foto-card">
+
+                <div
+                    class="imagem-area"
+                    onclick="abrirFoto('elen.5.png')"
+                >
+                    <img
+                        src="elen.5.png"
+                        alt="Foto especial da Elen"
+                    >
+
+                    <div class="numero">
+                        5
+                    </div>
+                </div>
+
+                <div class="legenda">
+
+                    <h2>
+                        Minha paz 🌌
+                    </h2>
+
+                    <p>
+                        Mesmo de longe, conversar com você
+                        já consegue fazer eu me sentir em casa.
+                    </p>
+
+                </div>
+
+            </article>
+
+            <article class="foto-card">
+
+                <div
+                    class="imagem-area"
+                    onclick="abrirFoto('elen.6.png')"
+                >
+                    <img
+                        src="elen.6.png"
+                        alt="Foto especial da Elen"
+                    >
+
+                    <div class="numero">
+                        6
+                    </div>
+                </div>
+
+                <div class="legenda">
+
+                    <h2>
+                        Você por completo ❤️
+                    </h2>
+
+                    <p>
+                        Não é apenas uma coisa que eu amo.
+                        Eu amo cada detalhe que faz você
+                        ser exatamente quem você é.
+                    </p>
+
+                </div>
+
+            </article>
+
+        </section>
+
+        <section class="final">
+
+            <h2>
+                Cada foto é especial...
+            </h2>
+
+            <p>
+                Mas nenhuma imagem conseguiria mostrar
+                completamente o tamanho do amor,
+                da admiração e do carinho que eu sinto por você.
+            </p>
+
+            <button onclick="proximaParte()">
+                Descobrir o que eu amo em você ❤️
+            </button>
+
+        </section>
+
+    </main>
+
+    <div
+        id="modal"
+        onclick="fecharFoto(event)"
+    >
+        <button
+            id="fechar"
+            onclick="fecharModal()"
+        >
+            ×
+        </button>
+
+        <img
+            id="fotoAmpliada"
+            src=""
+            alt="Foto ampliada"
+        >
+    </div>
+
+    <script>
+        /*
+            Cria as estrelas do fundo.
+        */
+
+        const estrelasContainer =
+            document.getElementById("estrelas");
+
+        for (let i = 0; i < 150; i++) {
+
+            const estrela =
+                document.createElement("div");
+
+            estrela.classList.add("estrela");
+
+            estrela.style.left =
+                Math.random() * 100 + "%";
+
+            estrela.style.top =
+                Math.random() * 100 + "%";
+
+            const tamanho =
+                Math.random() * 3 + 1;
+
+            estrela.style.width =
+                tamanho + "px";
+
+            estrela.style.height =
+                tamanho + "px";
+
+            estrela.style.animationDelay =
+                Math.random() * 4 + "s";
+
+            estrela.style.animationDuration =
+                Math.random() * 3 + 1.5 + "s";
+
+            estrelasContainer.appendChild(
+                estrela
+            );
+        }
+
+        /*
+            Cria os corações flutuando.
+        */
+
+        for (let i = 0; i < 13; i++) {
+
+            const coracao =
+                document.createElement("div");
+
+            coracao.classList.add("coracao");
+
+            coracao.innerText = "❤";
+
+            coracao.style.left =
+                Math.random() * 100 + "%";
+
+            coracao.style.animationDelay =
+                Math.random() * 11 + "s";
+
+            coracao.style.animationDuration =
+                Math.random() * 6 + 9 + "s";
+
+            coracao.style.fontSize =
+                Math.random() * 15 + 13 + "px";
+
+            document.body.appendChild(
+                coracao
+            );
+        }
+
+        /*
+            Faz cada cartão aparecer suavemente
+            quando entra na tela.
+        */
+
+        const cartoes =
+            document.querySelectorAll(
+                ".foto-card"
+            );
+
+        const observador =
+            new IntersectionObserver(
+                (entradas) => {
+
+                    entradas.forEach(
+                        (entrada, indice) => {
+
+                            if (
+                                entrada.isIntersecting
+                            ) {
+
+                                setTimeout(
+                                    () => {
+
+                                        entrada.target
+                                            .classList
+                                            .add(
+                                                "visivel"
+                                            );
+
+                                    },
+                                    indice * 130
+                                );
+
+                                observador.unobserve(
+                                    entrada.target
+                                );
+                            }
+                        }
+                    );
+                },
+                {
+                    threshold: 0.15
+                }
+            );
+
+        cartoes.forEach(
+            (cartao) => {
+
+                observador.observe(
+                    cartao
+                );
+
+            }
+        );
+
+        /*
+            Abre a foto em tamanho maior.
+        */
+
+        function abrirFoto(nomeDaFoto) {
+
+            const modal =
+                document.getElementById(
+                    "modal"
+                );
+
+            const fotoAmpliada =
+                document.getElementById(
+                    "fotoAmpliada"
+                );
+
+            fotoAmpliada.src =
+                nomeDaFoto;
+
+            modal.classList.add(
+                "aberto"
+            );
+
+            document.body.style.overflow =
+                "hidden";
+        }
+
+        function fecharModal() {
+
+            const modal =
+                document.getElementById(
+                    "modal"
+                );
+
+            modal.classList.remove(
+                "aberto"
+            );
+
+            document.body.style.overflow =
+                "";
+        }
+
+        function fecharFoto(evento) {
+
+            if (
+                evento.target.id === "modal"
+            ) {
+
+                fecharModal();
+
+            }
+        }
+
+        /*
+            Por enquanto mostra um aviso.
+            Depois criaremos coisas-que-amo.html.
+        */
+
+        function proximaParte() {
+
+            alert(
+                "A próxima parte será: coisas que eu amo em você ❤️"
+            );
+
+        }
+    </script>
+
+</body>
+
+</html>

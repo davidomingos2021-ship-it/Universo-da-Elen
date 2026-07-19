@@ -497,36 +497,29 @@
         /* Abre a segunda tela */
        function entrarNoUniverso() {
 
-    const musica =
-        document.getElementById("musica");
+    window.parent.iniciarMusica();
 
-    musica.play().catch((erro) => {
-        console.log(
-            "A música não conseguiu tocar:",
-            erro
+    const entrada =
+        document.getElementById("entrada");
+
+    const boasVindas =
+        document.getElementById("boasVindas");
+
+    entrada.classList.remove("tela-visivel");
+    entrada.classList.add("tela-escondida");
+
+    setTimeout(() => {
+
+        boasVindas.classList.remove(
+            "tela-escondida"
         );
-    });
-            const entrada =
-                document.getElementById("entrada");
 
-            const boasVindas =
-                document.getElementById("boasVindas");
+        boasVindas.classList.add(
+            "tela-visivel"
+        );
 
-            entrada.classList.remove("tela-visivel");
-            entrada.classList.add("tela-escondida");
-
-            setTimeout(() => {
-
-                boasVindas.classList.remove(
-                    "tela-escondida"
-                );
-
-                boasVindas.classList.add(
-                    "tela-visivel"
-                );
-
-            }, 700);
-        }
+    }, 700);
+}
 
         /* Abre a página da carta */
         function continuarHistoria() {

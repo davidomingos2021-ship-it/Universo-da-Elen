@@ -1,1 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Universo da Elen ❤️</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        #pagina {
+            display: block;
+
+            width: 100%;
+            height: 100%;
+
+            border: none;
+            background: #000;
+        }
+
+        #controleMusica {
+            position: fixed;
+
+            right: 18px;
+            bottom: 18px;
+
+            width: 54px;
+            height: 54px;
+
+            padding: 0;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+
+            color: white;
+            background: rgba(30, 8, 45, 0.82);
+
+            font-size: 23px;
+            cursor: pointer;
+
+            box-shadow:
+                0 12px 35px rgba(0, 0, 0, 0.55),
+                0 0 25px rgba(210, 110, 255, 0.28);
+
+            z-index: 99999;
+
+            transition:
+                transform 0.25s ease,
+                opacity 0.25s ease;
+        }
+
+        #controleMusica:hover {
+            transform: scale(1.08);
+        }
+    </style>
+</head>
+
+<body>
+
+    <iframe
+        id="pagina"
+        src="inicio.html"
+        title="Universo da Elen"
+    ></iframe>
+
+    <audio id="musica"></audio>
+
+    <button
+        id="controleMusica"
+        onclick="alternarMusica()"
+        aria-label="Pausar ou continuar música"
+    >
+        🎵
+    </button>
+
+    <script>
+        const playlist = [
+            "musica1.mp3",
+            "musica2.mp3",
+            "musica3.mp3",
+            "musica4.mp3"
+        ];
+
+        const musica =
+            document.getElementById("musica");
+
+        const controleMusica =
+            document.getElementById("controleMusica");
+
+        let musicaAtual = 0;
+        let musicaIniciada = false;
+
+        musica.volume = 0.28;
+        musica.src = playlist[musicaAtual];
+
+        /*
+            Esta função poderá ser chamada
+            pelas páginas abertas no iframe.
+        */
+
+        window.iniciarMusica = function () {
+
+            if (musicaIniciada) {
+                return;
+            }
+
+            musicaIniciada = true;
+
+            musica.play()
+                .then(() => {
+                    controleMusica.textContent = "🔊";
+                })
+                .catch((erro) => {
+                    console.log(
+                        "Não foi possível iniciar a música:",
+                        erro
+                    );
+
+                    controleMusica.textContent = "🎵";
+                });
+        };
+
+        function alternarMusica() {
+
+            if (musica.paused) {
+
+                musicaIniciada = true;
+
+                musica.play();
+
+                controleMusica.textContent = "🔊";
+
+            } else {
+
+                musica.pause();
+
+                controleMusica.textContent = "🔇";
+            }
+        }
+
+        /*
+            Quando uma música terminar,
+            começa a próxima automaticamente.
+        */
+
+        musica.addEventListener("ended", () => {
+
+            musicaAtual++;
+
+            if (musicaAtual >= playlist.length) {
+                musicaAtual = 0;
+            }
+
+            musica.src =
+                playlist[musicaAtual];
+
+            musica.play();
+        });
+
+        /*
+            Função opcional para trocar
+            páginas pelo código.
+        */
+
+        window.trocarPagina = function (arquivo) {
+
+            document.getElementById(
+                "pagina"
+            ).src = arquivo;
+        };
+    </script>
+
+</body>
+
+</html>

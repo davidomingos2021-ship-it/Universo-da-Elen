@@ -17,7 +17,9 @@
         }
 
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: auto;
+            overscroll-behavior: none;
+            background: #170822;
         }
 
         body {
@@ -37,6 +39,9 @@
                 );
 
             overflow-x: hidden;
+            overflow-y: auto;
+            overscroll-behavior: none;
+            -webkit-overflow-scrolling: touch;
         }
 
         /* Fundo estrelado */
@@ -571,20 +576,6 @@ Eu te amo hoje, amanhã e em todos os dias da minha vida. ❤️
 
                 letraAtual++;
 
-                /*
-                    Faz a página acompanhar
-                    suavemente o texto.
-                */
-                if (letraAtual % 45 === 0) {
-
-                    window.scrollTo({
-                        top:
-                            document.body.scrollHeight,
-                        behavior: "smooth"
-                    });
-
-                }
-
                 setTimeout(
                     escreverCarta,
                     velocidade
@@ -595,16 +586,6 @@ Eu te amo hoje, amanhã e em todos os dias da minha vida. ❤️
                 cursor.style.display = "none";
 
                 final.style.display = "block";
-
-                setTimeout(() => {
-
-                    window.scrollTo({
-                        top:
-                            document.body.scrollHeight,
-                        behavior: "smooth"
-                    });
-
-                }, 400);
 
             }
         }
@@ -680,10 +661,11 @@ Eu te amo hoje, amanhã e em todos os dias da minha vida. ❤️
         }
 
         /*
-            Depois vamos criar galeria.html.
-        */function proximaParte() {
-    window.location.href = "galeria.html";
-}
+            Abre a próxima parte.
+        */
+        function proximaParte() {
+            window.location.href = "galeria.html";
+        }
     </script>
 
 </body>

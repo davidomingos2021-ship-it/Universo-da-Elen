@@ -3,98 +3,537 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>Universo da Elen ❤️</title>
 
     <style>
-
-        body{
-            margin:0;
-            background:#000;
-            color:white;
-            font-family:Arial, Helvetica, sans-serif;
-
-            display:flex;
-            justify-content:center;
-            align-items:center;
-
-            height:100vh;
-
-            overflow:hidden;
+        * {
+            box-sizing: border-box;
         }
 
-        .conteudo{
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow: hidden;
 
-            text-align:center;
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
 
-            z-index:2;
-
+            background:
+                radial-gradient(
+                    circle at 50% 30%,
+                    #34104f 0%,
+                    #130821 35%,
+                    #030108 75%,
+                    #000000 100%
+                );
         }
 
-        h1{
+        /* As duas telas principais */
+        .tela {
+            position: fixed;
+            inset: 0;
 
-            font-size:60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
 
-            margin-bottom:15px;
+            padding: 24px;
+            text-align: center;
 
+            transition:
+                opacity 1s ease,
+                transform 1s ease;
         }
 
-        p{
-
-            font-size:22px;
-
-            color:#d7d7d7;
-
+        .tela-escondida {
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.08);
         }
 
-        button{
-
-            margin-top:35px;
-
-            padding:18px 45px;
-
-            border:none;
-
-            border-radius:50px;
-
-            font-size:22px;
-
-            cursor:pointer;
-
-            background:white;
-
-            transition:0.4s;
-
+        .tela-visivel {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
         }
 
-        button:hover{
-
-            transform:scale(1.08);
-
+        /* Fundo estrelado */
+        #estrelas {
+            position: fixed;
+            inset: 0;
+            overflow: hidden;
+            pointer-events: none;
         }
 
+        .estrela {
+            position: absolute;
+
+            width: 3px;
+            height: 3px;
+
+            border-radius: 50%;
+            background: white;
+
+            box-shadow:
+                0 0 6px white,
+                0 0 12px rgba(255, 255, 255, 0.8);
+
+            animation: piscar 2.5s infinite alternate;
+        }
+
+        @keyframes piscar {
+            from {
+                opacity: 0.2;
+                transform: scale(0.7);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1.3);
+            }
+        }
+
+        /* Estrelas cadentes */
+        .cadente {
+            position: fixed;
+            top: -60px;
+            left: -200px;
+
+            width: 180px;
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    to right,
+                    transparent,
+                    white
+                );
+
+            transform: rotate(35deg);
+
+            opacity: 0;
+            animation: cair 7s infinite;
+            pointer-events: none;
+        }
+
+        .cadente:nth-of-type(2) {
+            animation-delay: 3.5s;
+        }
+
+        @keyframes cair {
+            0% {
+                opacity: 0;
+                transform:
+                    translate(-100px, -100px)
+                    rotate(35deg);
+            }
+
+            8% {
+                opacity: 1;
+            }
+
+            30% {
+                opacity: 0;
+                transform:
+                    translate(130vw, 90vh)
+                    rotate(35deg);
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        /* Lua decorativa */
+        .lua {
+            position: fixed;
+            top: 7%;
+            right: 8%;
+
+            width: 110px;
+            height: 110px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle at 35% 30%,
+                    #ffffff,
+                    #fff2c4 55%,
+                    #ddc888 100%
+                );
+
+            box-shadow:
+                0 0 25px rgba(255, 244, 194, 0.7),
+                0 0 70px rgba(255, 244, 194, 0.35);
+
+            opacity: 0.85;
+
+            animation: flutuar 5s ease-in-out infinite;
+        }
+
+        @keyframes flutuar {
+            0%, 100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        /* Corações flutuando */
+        .coracao {
+            position: fixed;
+            bottom: -50px;
+
+            font-size: 22px;
+            opacity: 0;
+
+            animation: subir 9s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes subir {
+            0% {
+                transform:
+                    translateY(0)
+                    rotate(0deg);
+
+                opacity: 0;
+            }
+
+            15% {
+                opacity: 0.8;
+            }
+
+            80% {
+                opacity: 0.6;
+            }
+
+            100% {
+                transform:
+                    translateY(-120vh)
+                    rotate(25deg);
+
+                opacity: 0;
+            }
+        }
+
+        /* Conteúdo */
+        .caixa {
+            position: relative;
+            z-index: 5;
+
+            width: min(92%, 720px);
+
+            padding: 34px 24px;
+
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 28px;
+
+            background: rgba(14, 4, 27, 0.55);
+            backdrop-filter: blur(10px);
+
+            box-shadow:
+                0 20px 70px rgba(0, 0, 0, 0.55),
+                0 0 45px rgba(197, 87, 255, 0.15);
+        }
+
+        .pequeno {
+            margin-bottom: 10px;
+
+            font-size: 15px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+
+            color: #dbc7ff;
+        }
+
+        h1 {
+            margin: 0 0 18px;
+
+            font-size: clamp(42px, 9vw, 76px);
+            line-height: 1.05;
+
+            text-shadow:
+                0 0 18px rgba(255, 255, 255, 0.35),
+                0 0 35px rgba(224, 95, 255, 0.3);
+        }
+
+        h2 {
+            margin: 0 0 20px;
+
+            font-size: clamp(30px, 7vw, 54px);
+        }
+
+        p {
+            margin: 0 auto;
+
+            max-width: 580px;
+
+            font-size: clamp(18px, 4vw, 23px);
+            line-height: 1.6;
+
+            color: #eee8f7;
+        }
+
+        button {
+            margin-top: 32px;
+            padding: 17px 34px;
+
+            min-width: 240px;
+
+            border: none;
+            border-radius: 999px;
+
+            font-size: 19px;
+            font-weight: bold;
+
+            color: #25072f;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #e7cfff
+                );
+
+            box-shadow:
+                0 10px 30px rgba(225, 150, 255, 0.35);
+
+            cursor: pointer;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        button:hover {
+            transform: scale(1.06);
+
+            box-shadow:
+                0 14px 40px rgba(225, 150, 255, 0.5);
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        .frase-final {
+            margin-top: 20px;
+
+            font-size: 15px;
+            color: #cfc4d9;
+        }
+
+        /* Celular */
+        @media (max-width: 600px) {
+            .lua {
+                width: 75px;
+                height: 75px;
+
+                top: 5%;
+                right: 6%;
+            }
+
+            .caixa {
+                padding: 28px 18px;
+            }
+
+            button {
+                width: 100%;
+                max-width: 330px;
+            }
+        }
     </style>
-
 </head>
 
 <body>
 
-<div class="conteudo">
+    <!-- Fundo mágico -->
+    <div id="estrelas"></div>
 
-<h1>❤️ Elen ❤️</h1>
+    <div class="cadente"></div>
+    <div class="cadente"></div>
 
-<p>
-Existe algo que meu coração queria te mostrar...
-</p>
+    <div class="lua"></div>
 
-<button>
+    <!-- Primeira tela -->
+    <section
+        id="entrada"
+        class="tela tela-visivel"
+    >
+        <div class="caixa">
 
-Entrar no nosso universo ✨
+            <div class="pequeno">
+                Feito especialmente para
+            </div>
 
-</button>
+            <h1>
+                ❤️ Elen ❤️
+            </h1>
 
-</div>
+            <p>
+                Existe algo que meu coração queria te mostrar...
+            </p>
+
+            <button onclick="entrarNoUniverso()">
+                Entrar no nosso universo ✨
+            </button>
+
+            <div class="frase-final">
+                Toque no botão e aproveite cada detalhe.
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Segunda tela -->
+    <section
+        id="boasVindas"
+        class="tela tela-escondida"
+    >
+        <div class="caixa">
+
+            <div class="pequeno">
+                Um lugar criado só para você
+            </div>
+
+            <h2>
+                Bem-vinda ao nosso universo 🌌
+            </h2>
+
+            <p>
+                Aqui, cada estrela representa um momento,
+                um sentimento ou um sonho que eu ainda quero
+                viver ao seu lado.
+            </p>
+
+            <button onclick="continuarHistoria()">
+                Continuar nossa história ❤️
+            </button>
+
+            <div class="frase-final">
+                A próxima parte será a minha carta para você.
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+        const estrelasContainer =
+            document.getElementById("estrelas");
+
+        /*
+            Cria 120 estrelas em posições aleatórias.
+        */
+        for (let i = 0; i < 120; i++) {
+
+            const estrela =
+                document.createElement("div");
+
+            estrela.classList.add("estrela");
+
+            estrela.style.left =
+                Math.random() * 100 + "%";
+
+            estrela.style.top =
+                Math.random() * 100 + "%";
+
+            const tamanho =
+                Math.random() * 3 + 1;
+
+            estrela.style.width =
+                tamanho + "px";
+
+            estrela.style.height =
+                tamanho + "px";
+
+            estrela.style.animationDelay =
+                Math.random() * 4 + "s";
+
+            estrela.style.animationDuration =
+                Math.random() * 3 + 1.5 + "s";
+
+            estrelasContainer.appendChild(estrela);
+        }
+
+        /*
+            Cria alguns corações subindo suavemente.
+        */
+        for (let i = 0; i < 10; i++) {
+
+            const coracao =
+                document.createElement("div");
+
+            coracao.classList.add("coracao");
+
+            coracao.innerText = "❤";
+
+            coracao.style.left =
+                Math.random() * 100 + "%";
+
+            coracao.style.animationDelay =
+                Math.random() * 9 + "s";
+
+            coracao.style.animationDuration =
+                Math.random() * 5 + 8 + "s";
+
+            coracao.style.fontSize =
+                Math.random() * 15 + 14 + "px";
+
+            document.body.appendChild(coracao);
+        }
+
+        /*
+            Troca a primeira tela pela segunda.
+        */
+        function entrarNoUniverso() {
+
+            const entrada =
+                document.getElementById("entrada");
+
+            const boasVindas =
+                document.getElementById("boasVindas");
+
+            entrada.classList.remove("tela-visivel");
+            entrada.classList.add("tela-escondida");
+
+            setTimeout(() => {
+
+                boasVindas.classList.remove(
+                    "tela-escondida"
+                );
+
+                boasVindas.classList.add(
+                    "tela-visivel"
+                );
+
+            }, 700);
+        }
+
+        /*
+            Por enquanto, esse botão mostra
+            uma mensagem.
+
+            Na próxima etapa, ele abrirá
+            a sua carta completa.
+        */
+        function continuarHistoria() {
+
+            alert(
+                "A próxima parte será a carta que o Davi escreveu especialmente para você ❤️"
+            );
+        }
+    </script>
 
 </body>
 

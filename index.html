@@ -359,13 +359,17 @@
 
 <body>
 
-    <!-- Fundo mágico -->
-    <div id="estrelas"></div>
+<audio id="musica" loop>
+    <source src="musica1.mp3" type="audio/mpeg">
+</audio>
 
-    <div class="cadente"></div>
-    <div class="cadente"></div>
+<!-- Fundo mágico -->
+<div id="estrelas"></div>
 
-    <div class="lua"></div>
+<div class="cadente"></div>
+<div class="cadente"></div>
+
+<div class="lua"></div>
 
     <!-- Primeira tela -->
     <section
@@ -491,8 +495,17 @@
         }
 
         /* Abre a segunda tela */
-        function entrarNoUniverso() {
+       function entrarNoUniverso() {
 
+    const musica =
+        document.getElementById("musica");
+
+    musica.play().catch((erro) => {
+        console.log(
+            "A música não conseguiu tocar:",
+            erro
+        );
+    });
             const entrada =
                 document.getElementById("entrada");
 

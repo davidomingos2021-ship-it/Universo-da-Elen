@@ -2,65 +2,48 @@
 <html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Minha carta ❤️</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <style>
+<title>Carta ❤️</title>
 
-        body{
+<style>
 
-            margin:0;
-            background:#0f071d;
-            color:white;
-            font-family:Arial, Helvetica, sans-serif;
+body{
+    margin:0;
+    background:#0d0618;
+    color:white;
+    font-family:Arial, Helvetica, sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    overflow:hidden;
+}
 
-            display:flex;
-            justify-content:center;
-            align-items:center;
+.caixa{
+    width:850px;
+    max-width:90%;
+    background:rgba(255,255,255,.06);
+    padding:45px;
+    border-radius:25px;
+    backdrop-filter:blur(15px);
+    box-shadow:0 0 35px rgba(255,255,255,.08);
+}
 
-            height:100vh;
+h1{
+    text-align:center;
+    margin-bottom:35px;
+    font-size:38px;
+}
 
-        }
+#texto{
+    font-size:23px;
+    line-height:1.8;
+    white-space:pre-line;
+}
 
-        .caixa{
-
-            width:800px;
-            max-width:90%;
-
-            background:rgba(255,255,255,.05);
-
-            border:1px solid rgba(255,255,255,.15);
-
-            border-radius:25px;
-
-            padding:45px;
-
-            text-align:center;
-
-        }
-
-        h1{
-
-            font-size:45px;
-
-            margin-bottom:30px;
-
-        }
-
-        #texto{
-
-            font-size:22px;
-
-            line-height:1.8;
-
-            text-align:left;
-
-            white-space:pre-line;
-
-        }
-
-    </style>
+</style>
 
 </head>
 
@@ -68,11 +51,71 @@
 
 <div class="caixa">
 
-<h1>💌 Uma carta para você 💌</h1>
+<h1>💌 Para o amor da minha vida 💌</h1>
 
 <p id="texto"></p>
 
 </div>
+
+<script>
+
+const carta = `
+Cara, eu te amo tanto, mas tanto, que não consigo descrever esse amor que sinto por você. Mas pode ter certeza de uma coisa: eu jamais vou te deixar sozinha.
+
+Eu sinto que encontro toda a minha paz em você. Você consegue me fazer rir em qualquer momento, independentemente da situação. Quando estou triste, cansado ou até mesmo pensando demais, é você quem consegue deixar tudo melhor.
+
+Eu sei que ainda estamos no começo da nossa história, mas quero ir até onde Deus permitir. Eu amo cada detalhe seu. Você me completa por inteiro. Jamais imaginei que seria você. Jamais imaginei que você iria me amar, principalmente por causa da minha aparência ou qualquer outra coisa. Mas você está me mostrando um lado seu que faz eu me apaixonar cada vez mais pela pessoa incrível que você é.
+
+Eu amo o seu jeito, a sua aparência, a sua voz, os seus olhos, o seu sorriso, o seu cabelo... Eu amo você por completo.
+
+E quero me apaixonar cada vez mais por você. Não vejo a hora de te encontrar, poder te abraçar, te beijar, dormir ao seu lado, construir uma família, ter nossos filhos, conquistar as nossas coisas e viver tudo isso com você. É isso que eu peço a Deus todos os dias.
+
+Eu sei que, às vezes, posso te deixar triste ou magoada por alguma coisa. Mas quero que você sempre me conte tudo o que estiver sentindo. Quero aprender, a cada dia, a te amar melhor.
+
+Também quero te conhecer cada vez mais. Quero ouvir as suas histórias, saber das coisas que você gosta, dos seus hobbies, das suas comidas favoritas, dos seus sonhos. Quero fazer mais ligações, tirar mais fotos com você e poder ver o seu sorriso sempre que possível.
+
+Eu amo quando você se preocupa comigo, quando demonstra carinho, cuidado e interesse. Amo conversar com você. Espero que a gente continue criando um vínculo cada vez mais forte.
+
+Cada segundo que passo com você me faz sentir algo diferente. É uma sensação tão boa que espero nunca perder.
+
+Espero nunca te perder.
+
+Eu amo ouvir as suas gracinhas, amo poder te ajudar, jogar com você e até te irritar de vez em quando kkk.
+
+Espero que você nunca me deixe. Eu nem consigo imaginar como seria um dia sem você. Você virou parte da minha rotina. Eu penso em você toda hora, literalmente a cada segundo.
+
+Quero fazer muito mais por você. Como eu disse, ainda estamos apenas no começo. Ainda teremos muitas risadas, muitas lembranças, muitos momentos especiais e muitas conquistas pela frente.
+
+E quero que você saiba de uma coisa: eu te amo muito, muito mesmo.
+
+Jamais pense que eu poderia te trocar por outra pessoa ou encontrar alguém melhor do que você. Isso simplesmente não existe.
+
+Eu te amo com todas as minhas forças. Pode ter certeza de que a única mulher que terá o meu coração é você. Ninguém mais. Somente você.
+
+E, acima de tudo, agradeço a Deus. Porque, sem Ele, nós nunca teríamos nos conhecido.
+
+Eu te amo hoje, amanhã e em todos os dias da minha vida. ❤️
+`;
+
+let i = 0;
+
+function escrever(){
+
+    if(i < carta.length){
+
+        document.getElementById("texto").innerHTML += carta.charAt(i);
+
+        i++;
+
+        setTimeout(escrever,25);
+
+    }
+
+}
+
+escrever();
+
+</script>
 
 </body>
 

@@ -1,1 +1,1055 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
 
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Coisas que eu amo em você ❤️</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow-x: hidden;
+
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+
+            background:
+                radial-gradient(
+                    circle at 50% 15%,
+                    #3b1259 0%,
+                    #170821 40%,
+                    #06010c 75%,
+                    #000000 100%
+                );
+        }
+
+        #estrelas {
+            position: fixed;
+            inset: 0;
+
+            overflow: hidden;
+            pointer-events: none;
+
+            z-index: 0;
+        }
+
+        .estrela {
+            position: absolute;
+
+            border-radius: 50%;
+            background: white;
+
+            box-shadow:
+                0 0 6px white,
+                0 0 12px rgba(255, 255, 255, 0.75);
+
+            animation: piscar 2.5s infinite alternate;
+        }
+
+        @keyframes piscar {
+            from {
+                opacity: 0.15;
+                transform: scale(0.7);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1.35);
+            }
+        }
+
+        .cadente {
+            position: fixed;
+
+            top: -100px;
+            left: -250px;
+
+            width: 220px;
+            height: 2px;
+
+            background:
+                linear-gradient(
+                    to right,
+                    transparent,
+                    white
+                );
+
+            opacity: 0;
+            pointer-events: none;
+
+            transform: rotate(35deg);
+
+            animation: cair 9s linear infinite;
+
+            z-index: 1;
+        }
+
+        .cadente-2 {
+            animation-delay: 3s;
+        }
+
+        .cadente-3 {
+            animation-delay: 6s;
+        }
+
+        @keyframes cair {
+            0% {
+                opacity: 0;
+
+                transform:
+                    translate(-200px, -150px)
+                    rotate(35deg);
+            }
+
+            8% {
+                opacity: 1;
+            }
+
+            28% {
+                opacity: 0;
+
+                transform:
+                    translate(135vw, 100vh)
+                    rotate(35deg);
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .lua {
+            position: fixed;
+
+            top: 5%;
+            right: 6%;
+
+            width: 85px;
+            height: 85px;
+
+            border-radius: 50%;
+
+            background:
+                radial-gradient(
+                    circle at 35% 30%,
+                    #ffffff,
+                    #fff2c4 55%,
+                    #d6bf7b 100%
+                );
+
+            box-shadow:
+                0 0 25px rgba(255, 244, 194, 0.7),
+                0 0 70px rgba(255, 244, 194, 0.3);
+
+            opacity: 0.82;
+
+            animation: flutuar 5s ease-in-out infinite;
+
+            z-index: 1;
+        }
+
+        @keyframes flutuar {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        .coracao {
+            position: fixed;
+            bottom: -50px;
+
+            color: rgba(255, 129, 185, 0.7);
+            opacity: 0;
+
+            pointer-events: none;
+
+            animation: subir 11s linear infinite;
+
+            z-index: 1;
+        }
+
+        @keyframes subir {
+            0% {
+                opacity: 0;
+
+                transform:
+                    translateY(0)
+                    rotate(0deg);
+            }
+
+            15% {
+                opacity: 0.75;
+            }
+
+            80% {
+                opacity: 0.45;
+            }
+
+            100% {
+                opacity: 0;
+
+                transform:
+                    translateY(-120vh)
+                    rotate(30deg);
+            }
+        }
+
+        main {
+            position: relative;
+            z-index: 5;
+
+            width: 100%;
+
+            padding:
+                70px
+                20px
+                100px;
+        }
+
+        .topo {
+            width: min(92%, 900px);
+
+            margin:
+                0
+                auto
+                50px;
+
+            text-align: center;
+        }
+
+        .pequeno {
+            margin-bottom: 12px;
+
+            color: #dbc7ff;
+
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin:
+                0
+                0
+                18px;
+
+            font-size:
+                clamp(
+                    38px,
+                    7vw,
+                    64px
+                );
+
+            text-shadow:
+                0 0 25px rgba(255, 255, 255, 0.2),
+                0 0 40px rgba(218, 111, 255, 0.25);
+        }
+
+        .introducao {
+            max-width: 720px;
+
+            margin: 0 auto;
+
+            font-size:
+                clamp(
+                    18px,
+                    3vw,
+                    22px
+                );
+
+            line-height: 1.7;
+            color: #e8deef;
+        }
+
+        .cartoes {
+            width: min(94%, 1050px);
+
+            margin: 0 auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    minmax(0, 1fr)
+                );
+
+            gap: 26px;
+        }
+
+        .cartao {
+            position: relative;
+
+            min-height: 250px;
+
+            perspective: 1000px;
+
+            cursor: pointer;
+        }
+
+        .cartao-interior {
+            position: absolute;
+            inset: 0;
+
+            transition: transform 0.8s ease;
+
+            transform-style: preserve-3d;
+        }
+
+        .cartao.aberto .cartao-interior {
+            transform: rotateY(180deg);
+        }
+
+        .frente,
+        .verso {
+            position: absolute;
+            inset: 0;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+
+            padding: 30px 24px;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.14);
+
+            border-radius: 26px;
+
+            background:
+                rgba(19, 7, 31, 0.75);
+
+            backdrop-filter: blur(12px);
+
+            box-shadow:
+                0 22px 65px rgba(0, 0, 0, 0.5),
+                0 0 35px rgba(213, 116, 255, 0.1);
+
+            backface-visibility: hidden;
+        }
+
+        .frente {
+            text-align: center;
+        }
+
+        .verso {
+            transform: rotateY(180deg);
+
+            text-align: center;
+
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(65, 18, 89, 0.92),
+                    rgba(24, 7, 40, 0.92)
+                );
+        }
+
+        .icone {
+            font-size: 44px;
+
+            margin-bottom: 15px;
+        }
+
+        .frente h2,
+        .verso h2 {
+            margin:
+                0
+                0
+                12px;
+
+            font-size: 27px;
+        }
+
+        .frente p {
+            margin: 0;
+
+            color: #cfc2d8;
+
+            font-size: 16px;
+        }
+
+        .verso p {
+            margin: 0;
+
+            color: #f2eaf7;
+
+            font-size: 18px;
+            line-height: 1.7;
+        }
+
+        .contador-abertos {
+            width: min(92%, 700px);
+
+            margin:
+                48px
+                auto
+                0;
+
+            padding: 20px 24px;
+
+            text-align: center;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.12);
+
+            border-radius: 22px;
+
+            background:
+                rgba(18, 6, 31, 0.65);
+
+            color: #ded1e8;
+
+            font-size: 18px;
+        }
+
+        #final {
+            display: none;
+
+            width: min(92%, 820px);
+
+            margin:
+                55px
+                auto
+                0;
+
+            padding: 40px 28px;
+
+            text-align: center;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.14);
+
+            border-radius: 28px;
+
+            background:
+                rgba(18, 6, 31, 0.72);
+
+            backdrop-filter: blur(12px);
+
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.5),
+                0 0 45px rgba(216, 115, 255, 0.15);
+
+            animation: aparecer 1.3s ease forwards;
+        }
+
+        #final h2 {
+            margin:
+                0
+                0
+                15px;
+
+            font-size:
+                clamp(
+                    29px,
+                    5vw,
+                    44px
+                );
+        }
+
+        #final p {
+            max-width: 650px;
+
+            margin: 0 auto;
+
+            font-size: 19px;
+            line-height: 1.7;
+
+            color: #dfd3e8;
+        }
+
+        button {
+            margin-top: 28px;
+
+            padding: 17px 34px;
+
+            border: none;
+            border-radius: 999px;
+
+            font-size: 18px;
+            font-weight: bold;
+
+            color: #25072f;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    #ffffff,
+                    #e6c9ff
+                );
+
+            cursor: pointer;
+
+            box-shadow:
+                0 12px 35px
+                rgba(224, 150, 255, 0.3);
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+        button:hover {
+            transform: scale(1.06);
+
+            box-shadow:
+                0 16px 45px
+                rgba(224, 150, 255, 0.5);
+        }
+
+        @keyframes aparecer {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 750px) {
+            main {
+                padding:
+                    90px
+                    12px
+                    70px;
+            }
+
+            .cartoes {
+                grid-template-columns: 1fr;
+            }
+
+            .cartao {
+                min-height: 270px;
+            }
+
+            .lua {
+                width: 64px;
+                height: 64px;
+
+                top: 3%;
+                right: 5%;
+            }
+
+            button {
+                width: 100%;
+                max-width: 360px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="estrelas"></div>
+
+    <div class="cadente"></div>
+    <div class="cadente cadente-2"></div>
+    <div class="cadente cadente-3"></div>
+
+    <div class="lua"></div>
+
+    <main>
+
+        <section class="topo">
+
+            <div class="pequeno">
+                Abra cada coração
+            </div>
+
+            <h1>
+                Coisas que eu amo em você ❤️
+            </h1>
+
+            <p class="introducao">
+                Não existe apenas uma coisa que eu amo em você.
+                Existem detalhes, momentos e sentimentos que fazem
+                eu me apaixonar cada vez mais.
+            </p>
+
+        </section>
+
+        <section class="cartoes">
+
+            <article
+                class="cartao"
+                onclick="abrirCartao(this)"
+            >
+                <div class="cartao-interior">
+
+                    <div class="frente">
+
+                        <div class="icone">
+                            😊
+                        </div>
+
+                        <h2>
+                            Seu sorriso
+                        </h2>
+
+                        <p>
+                            Toque para abrir ❤️
+                        </p>
+
+                    </div>
+
+                    <div class="verso">
+
+                        <h2>
+                            Seu sorriso ❤️
+                        </h2>
+
+                        <p>
+                            Seu sorriso consegue melhorar até
+                            os dias em que eu não estou bem.
+                        </p>
+
+                    </div>
+
+                </div>
+            </article>
+
+            <article
+                class="cartao"
+                onclick="abrirCartao(this)"
+            >
+                <div class="cartao-interior">
+
+                    <div class="frente">
+
+                        <div class="icone">
+                            🎧
+                        </div>
+
+                        <h2>
+                            Sua voz
+                        </h2>
+
+                        <p>
+                            Toque para abrir ❤️
+                        </p>
+
+                    </div>
+
+                    <div class="verso">
+
+                        <h2>
+                            Sua voz ❤️
+                        </h2>
+
+                        <p>
+                            Escutar sua voz me acalma e faz
+                            qualquer momento ficar melhor.
+                        </p>
+
+                    </div>
+
+                </div>
+            </article>
+
+            <article
+                class="cartao"
+                onclick="abrirCartao(this)"
+            >
+                <div class="cartao-interior">
+
+                    <div class="frente">
+
+                        <div class="icone">
+                            ✨
+                        </div>
+
+                        <h2>
+                            Seu olhar
+                        </h2>
+
+                        <p>
+                            Toque para abrir ❤️
+                        </p>
+
+                    </div>
+
+                    <div class="verso">
+
+                        <h2>
+                            Seu olhar ❤️
+                        </h2>
+
+                        <p>
+                            Tem alguma coisa no seu olhar
+                            que prende toda a minha atenção.
+                        </p>
+
+                    </div>
+
+                </div>
+            </article>
+
+            <article
+                class="cartao"
+                onclick="abrirCartao(this)"
+            >
+                <div class="cartao-interior">
+
+                    <div class="frente">
+
+                        <div class="icone">
+                            😌
+                        </div>
+
+                        <h2>
+                            Seu jeitinho
+                        </h2>
+
+                        <p>
+                            Toque para abrir ❤️
+                        </p>
+
+                    </div>
+
+                    <div class="verso">
+
+                        <h2>
+                            Seu jeitinho ❤️
+                        </h2>
+
+                        <p>
+                            Eu amo suas gracinhas, seu jeito
+                            de falar e até quando você me irrita.
+                        </p>
+
+                    </div>
+
+                </div>
+            </article>
+
+            <article
+                class="cartao"
+                onclick="abrirCartao(this)"
+            >
+                <div class="cartao-interior">
+
+                    <div class="frente">
+
+                        <div class="icone">
+                            🫶
+                        </div>
+
+                        <h2>
+                            Seu cuidado comigo
+                        </h2>
+
+                        <p>
+                            Toque para abrir ❤️
+                        </p>
+
+                    </div>
+
+                    <div class="verso">
+
+                        <h2>
+                            Seu cuidado comigo ❤️
+                        </h2>
+
+                        <p>
+                            Amo quando você se preocupa comigo
+                            e demonstra que realmente se importa.
+                        </p>
+
+                    </div>
+
+                </div>
+            </article>
+
+            <article
+                class="cartao"
+                onclick="abrirCartao(this)"
+            >
+                <div class="cartao-interior">
+
+                    <div class="frente">
+
+                        <div class="icone">
+                            🌹
+                        </div>
+
+                        <h2>
+                            Sua beleza
+                        </h2>
+
+                        <p>
+                            Toque para abrir ❤️
+                        </p>
+
+                    </div>
+
+                    <div class="verso">
+
+                        <h2>
+                            Sua beleza ❤️
+                        </h2>
+
+                        <p>
+                            Eu amo cada detalhe seu:
+                            seu cabelo, seus olhos, seu sorriso
+                            e tudo que faz você ser você.
+                        </p>
+
+                    </div>
+
+                </div>
+            </article>
+
+            <article
+                class="cartao"
+                onclick="abrirCartao(this)"
+            >
+                <div class="cartao-interior">
+
+                    <div class="frente">
+
+                        <div class="icone">
+                            🌌
+                        </div>
+
+                        <h2>
+                            Minha paz
+                        </h2>
+
+                        <p>
+                            Toque para abrir ❤️
+                        </p>
+
+                    </div>
+
+                    <div class="verso">
+
+                        <h2>
+                            Minha paz ❤️
+                        </h2>
+
+                        <p>
+                            Mesmo de longe, você virou
+                            um lugar seguro para o meu coração.
+                        </p>
+
+                    </div>
+
+                </div>
+            </article>
+
+            <article
+                class="cartao"
+                onclick="abrirCartao(this)"
+            >
+                <div class="cartao-interior">
+
+                    <div class="frente">
+
+                        <div class="icone">
+                            ❤️
+                        </div>
+
+                        <h2>
+                            Você por completo
+                        </h2>
+
+                        <p>
+                            Toque para abrir ❤️
+                        </p>
+
+                    </div>
+
+                    <div class="verso">
+
+                        <h2>
+                            Você por completo ❤️
+                        </h2>
+
+                        <p>
+                            No fim, não é apenas uma qualidade.
+                            Eu amo a pessoa inteira que você é.
+                        </p>
+
+                    </div>
+
+                </div>
+            </article>
+
+        </section>
+
+        <div class="contador-abertos">
+
+            Você abriu
+            <strong id="quantidade">
+                0
+            </strong>
+            de 8 corações ❤️
+
+        </div>
+
+        <section id="final">
+
+            <h2>
+                E ainda existem muitos outros motivos...
+            </h2>
+
+            <p>
+                Mesmo depois de escrever tudo isso,
+                ainda existem mil coisas que eu amo em você
+                e que eu nem consigo colocar em palavras.
+            </p>
+
+            <button onclick="proximaParte()">
+                Procurar minhas cartinhas nas estrelas ✨
+            </button>
+
+        </section>
+
+    </main>
+
+    <script>
+        const estrelasContainer =
+            document.getElementById("estrelas");
+
+        for (let i = 0; i < 150; i++) {
+
+            const estrela =
+                document.createElement("div");
+
+            estrela.classList.add("estrela");
+
+            estrela.style.left =
+                Math.random() * 100 + "%";
+
+            estrela.style.top =
+                Math.random() * 100 + "%";
+
+            const tamanho =
+                Math.random() * 3 + 1;
+
+            estrela.style.width =
+                tamanho + "px";
+
+            estrela.style.height =
+                tamanho + "px";
+
+            estrela.style.animationDelay =
+                Math.random() * 4 + "s";
+
+            estrela.style.animationDuration =
+                Math.random() * 3 + 1.5 + "s";
+
+            estrelasContainer.appendChild(
+                estrela
+            );
+        }
+
+        for (let i = 0; i < 13; i++) {
+
+            const coracao =
+                document.createElement("div");
+
+            coracao.classList.add("coracao");
+
+            coracao.innerText = "❤";
+
+            coracao.style.left =
+                Math.random() * 100 + "%";
+
+            coracao.style.animationDelay =
+                Math.random() * 11 + "s";
+
+            coracao.style.animationDuration =
+                Math.random() * 6 + 9 + "s";
+
+            coracao.style.fontSize =
+                Math.random() * 15 + 13 + "px";
+
+            document.body.appendChild(
+                coracao
+            );
+        }
+
+        let abertos = 0;
+
+        function abrirCartao(cartao) {
+
+            if (
+                cartao.classList.contains(
+                    "aberto"
+                )
+            ) {
+                return;
+            }
+
+            cartao.classList.add(
+                "aberto"
+            );
+
+            abertos++;
+
+            document.getElementById(
+                "quantidade"
+            ).textContent =
+                abertos;
+
+            if (abertos === 8) {
+
+                const final =
+                    document.getElementById(
+                        "final"
+                    );
+
+                final.style.display =
+                    "block";
+
+                setTimeout(() => {
+
+                    final.scrollIntoView({
+                        behavior: "smooth"
+                    });
+
+                }, 600);
+            }
+        }
+
+        function proximaParte() {
+
+            alert(
+                "A próxima parte será: cartinhas escondidas nas estrelas ✨"
+            );
+
+        }
+    </script>
+
+</body>
+
+</html>

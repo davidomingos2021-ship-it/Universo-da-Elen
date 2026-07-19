@@ -34,7 +34,7 @@
                 );
         }
 
-        /* As duas telas principais */
+        /* Telas principais */
         .tela {
             position: fixed;
             inset: 0;
@@ -151,7 +151,7 @@
             }
         }
 
-        /* Lua decorativa */
+        /* Lua */
         .lua {
             position: fixed;
             top: 7%;
@@ -180,7 +180,8 @@
         }
 
         @keyframes flutuar {
-            0%, 100% {
+            0%,
+            100% {
                 transform: translateY(0);
             }
 
@@ -189,7 +190,7 @@
             }
         }
 
-        /* Corações flutuando */
+        /* Corações */
         .coracao {
             position: fixed;
             bottom: -50px;
@@ -227,7 +228,7 @@
             }
         }
 
-        /* Conteúdo */
+        /* Caixa central */
         .caixa {
             position: relative;
             z-index: 5;
@@ -334,7 +335,7 @@
             color: #cfc4d9;
         }
 
-        /* Celular */
+        /* Ajustes para celular */
         @media (max-width: 600px) {
             .lua {
                 width: 75px;
@@ -432,9 +433,7 @@
         const estrelasContainer =
             document.getElementById("estrelas");
 
-        /*
-            Cria 120 estrelas em posições aleatórias.
-        */
+        /* Cria 120 estrelas */
         for (let i = 0; i < 120; i++) {
 
             const estrela =
@@ -466,9 +465,7 @@
             estrelasContainer.appendChild(estrela);
         }
 
-        /*
-            Cria alguns corações subindo suavemente.
-        */
+        /* Cria corações flutuando */
         for (let i = 0; i < 10; i++) {
 
             const coracao =
@@ -493,9 +490,7 @@
             document.body.appendChild(coracao);
         }
 
-        /*
-            Troca a primeira tela pela segunda.
-        */
+        /* Abre a segunda tela */
         function entrarNoUniverso() {
 
             const entrada =
@@ -520,16 +515,12 @@
             }, 700);
         }
 
-        /*
-            Por enquanto, esse botão mostra
-            uma mensagem.
+        /* Abre a página da carta */
+        function continuarHistoria() {
+            window.location.href = "carta.html";
+        }
+    </script>
 
-            Na próxima etapa, ele abrirá
-            a sua carta completa.
-        */
-       function continuarHistoria() {
+</body>
 
-window.location.href = "carta.html";
-
-}
 </html>

@@ -719,6 +719,49 @@
                 width: 100%;
             }
         }
+    
+
+        /* CORREÇÃO DEFINITIVA DA ROLAGEM */
+        html {
+            width: 100%;
+            min-height: 100%;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        body {
+            width: 100% !important;
+            height: auto !important;
+            min-height: 100vh !important;
+            display: block !important;
+            overflow-x: hidden !important;
+            overflow-y: auto !important;
+        }
+
+        main {
+            position: relative;
+            width: min(94%, 950px) !important;
+            height: auto !important;
+            min-height: 100vh !important;
+            margin: 0 auto !important;
+            padding: 70px 20px 160px !important;
+            overflow: visible !important;
+        }
+
+        #grandeFinal {
+            width: min(100%, 900px);
+            height: auto !important;
+            max-height: none !important;
+            overflow: visible !important;
+        }
+
+        #textoFinal {
+            height: auto !important;
+            min-height: 270px;
+            max-height: none !important;
+            overflow: visible !important;
+        }
+
     </style>
 </head>
 
